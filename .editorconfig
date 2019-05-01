@@ -1,5 +1,6 @@
-[*.{js,jsx,ts,tsx,vue}]
-indent_style = space
+// 这个是编辑器的配置文件，在这里我们可以配置编辑器的使用习惯
+root = true
+[*]
+charset = utf-8
+indent_style = tabs
 indent_size = 2
-trim_trailing_whitespace = true
-insert_final_newline = true
