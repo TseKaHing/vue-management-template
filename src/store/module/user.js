@@ -1,5 +1,5 @@
 const state = {
-
+  authorName: 'guessWhat'
 }
 
 const mutations = {

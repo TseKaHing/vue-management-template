@@ -7,6 +7,11 @@ export default [
     component: Home
   },
   {
+    path: '/father',
+    name: 'father',
+    component: () => import('@/views/father.vue')
+  },
+  {
     path: '/about',
     name: 'about',
     // route level code-splitting
