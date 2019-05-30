@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Input :value="value" @input="handleInput"></Input>
+    <Input :value="value" @input="handleInput" />
   </div>
 </template>
 

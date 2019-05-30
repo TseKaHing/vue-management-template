@@ -7,6 +7,11 @@ export default [
     component: Home
   },
   {
+    path: '/home',
+    name: 'home',
+    component: () => import('@/views/Layout.vue')
+  },
+  {
     path: '/father',
     name: 'father',
     component: () => import('@/views/father.vue')
