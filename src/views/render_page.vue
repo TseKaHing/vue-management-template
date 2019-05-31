@@ -20,7 +20,11 @@ export default {
   },
   methods: {
     renderFunc() {
-      
+      h => h('i', {
+        style: {
+          
+        }
+      })
     }
   }
 }

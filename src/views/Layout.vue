@@ -1,7 +1,9 @@
 <template>
   <div class="layout-wrapper">
     <Layout class="layout-outer">
-      <Sider collapsible v-model="collapsed" hide-trigger></Sider>
+      <Sider :width="300" collapsible v-model="collapsed" hide-trigger>
+        <side-menu :collapsed="collapsed" :list="menuList"></side-menu>
+      </Sider>
       <Layout>
         <Header class="header-wrapper">
           <Icon type="md-menu" :size="32" @click.native="handleCollapsed" :class="triggerClasses"/>
@@ -17,11 +19,44 @@
 </template>
 
 <script>
+import SideMenu from "./side-menu";
 export default {
   data() {
     return {
-      collapsed: false
+      collapsed: true,
+      menuList: [
+        {
+          title: "1",
+          name: 'menu1',
+          icon: "ios-alarm"
+        },
+        {
+          title: "2",
+          name: 'menu2',
+          icon: "ios-alarm"
+        },
+        {
+          title: "3",
+          name: 'menu3',
+          icon: "ios-alarm",
+          children: [
+            { title: "3-1", name: 'menu3-1',  icon: "ios-alarm" },
+            {
+              title: "3-2",
+              name: 'menu3-2',
+              icon: "ios-alarm",
+              children: [
+                { title: "3-2-1", name: 'menu3-2-1', icon: "ios-alarm" },
+                { title: "3-2-2", name: 'menu3-2-2', icon: "ios-alarm" }
+              ]
+            }
+          ]
+        }
+      ]
     };
+  },
+  components: {
+    SideMenu
   },
   computed: {
     triggerClasses() {

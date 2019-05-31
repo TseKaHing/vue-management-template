@@ -14,7 +14,7 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     // 需要代理的URL, 任何位置请求都代理到这个URL
-    proxy: 'http://localhost:4000'
+    // proxy: 'http://localhost:4000'
   }
 
 }
