@@ -7,9 +7,11 @@ import Lockr from "lockr"
 import axios from "axios";
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
+import SlideVerify from 'vue-monoplasty-slide-verify';
 
 Vue.use(iView)
 Vue.config.productionTip = false
+Vue.use(SlideVerify);
 
 window.Lockr = Lockr
 window.axios = axios;

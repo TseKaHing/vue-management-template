@@ -6,11 +6,6 @@ const _import = require("./import-" + process.env.NODE_ENV);
 
 const gloabalRoutes = [
   {
-    path: '*',
-    name: '404',
-    component: _import('common/404')
-  },
-  {
     path: '/',
     redirect: '/login'
   },
@@ -18,7 +13,12 @@ const gloabalRoutes = [
     path: '/login',
     name: 'login',
     component: _import('login/Login')
-  }
+  },
+  {
+    path: '*',
+    name: '404',
+    component: _import('common/404')
+  },
 ]
 
 const commonRoutes = [

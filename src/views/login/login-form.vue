@@ -1,10 +1,15 @@
 <style lang="less" scoped>
 .rememberKey {
-  padding-left: 5px;
+  padding-left: 10px;
+  font-size: 14px;
+}
+.form-class {
+  width: 88%;
+  padding-left: 20px;
 }
 </style>
 <template>
-  <Form ref="form" :model="form" :rules="rules" @keydown.enter.native="login">
+  <Form ref="form" :model="form" :rules="rules" @keydown.enter.native="login" class="form-class">
     <FormItem prop="userName">
       <Input v-model="form.userName" placeholder="请输入用户名">
         <span slot="prepend">
@@ -18,6 +23,9 @@
           <Icon :size="16" type="md-lock"/>
         </span>
       </Input>
+    </FormItem>
+    <FormItem>
+      <slide-verify></slide-verify>
     </FormItem>
     <Checkbox v-model="checked">
       <span class="rememberKey">记住密码</span>
@@ -33,7 +41,12 @@
 </template>
 <script>
 import http from "@/assets/js/http.js";
+import SlideVerify from "_c/slide-verify";
+
 export default {
+  component: {
+    SlideVerify
+  },
   data() {
     return {
       // 这里的 checked 表示 记住密码那个 checkbox 的状态
