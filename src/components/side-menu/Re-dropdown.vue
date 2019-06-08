@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'ReDropdown',
+  name: "ReDropdown",
   props: {
     parent: {
       type: Object,
@@ -26,7 +26,7 @@ export default {
     },
     iconColor: {
       type: String,
-      default: '#515a6e'
+      default: "#515a6e"
     },
     showTitle: {
       type: Boolean,
@@ -34,19 +34,19 @@ export default {
     }
   },
   computed: {
-    titleStyle () {
+    titleStyle() {
       return {
-        textAlign: this.showTitle ? 'left' : 'center',
-        paddingLeft: this.showTitle ? '16px' : ''
-      }
+        textAlign: this.showTitle ? "left" : "center",
+        paddingLeft: this.showTitle ? "16px" : ""
+      };
     }
   },
   methods: {
-    handleClick (name) {
-      if (!this.showTitle) this.$emit('on-select', name)
+    handleClick(name) {
+      if (!this.showTitle) this.$emit("on-select", name);
     }
   }
-}
+};
 </script>
 
 <style>

@@ -1,0 +1,28 @@
+.layout-wrapper,
+.layout-outer {
+  height: 100%;
+
+  .header-wrapper {
+    background-color: #fff;
+    box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.1);
+    padding: 0 23px;
+
+    .trigger-icon {
+      transition: transform 0.3s ease;
+      cursor: pointer;
+
+      &.rotate {
+        transform: rotateZ(-90deg);
+        transition: transform 0.3s ease;
+      }
+    }
+  }
+
+  .content-con {
+    padding: 10px;
+  }
+
+  .page-card {
+    min-height: ~"calc(100vh - 84px)";
+  }
+}

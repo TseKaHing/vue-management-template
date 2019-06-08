@@ -19,35 +19,36 @@
 </template>
 
 <script>
-import SideMenu from "./side-menu";
+import "./Layout.less";
+import SideMenu from "@/components/side-menu";
 export default {
   data() {
     return {
-      collapsed: true,
+      collapsed: false,
       menuList: [
         {
           title: "1",
-          name: 'menu1',
+          name: "menu1",
           icon: "ios-alarm"
         },
         {
           title: "2",
-          name: 'menu2',
+          name: "menu2",
           icon: "ios-alarm"
         },
         {
           title: "3",
-          name: 'menu3',
+          name: "menu3",
           icon: "ios-alarm",
           children: [
-            { title: "3-1", name: 'menu3-1',  icon: "ios-alarm" },
+            { title: "3-1", name: "menu3-1", icon: "ios-alarm" },
             {
               title: "3-2",
-              name: 'menu3-2',
+              name: "menu3-2",
               icon: "ios-alarm",
               children: [
-                { title: "3-2-1", name: 'menu3-2-1', icon: "ios-alarm" },
-                { title: "3-2-2", name: 'menu3-2-2', icon: "ios-alarm" }
+                { title: "3-2-1", name: "menu3-2-1", icon: "ios-alarm" },
+                { title: "3-2-2", name: "menu3-2-2", icon: "ios-alarm" }
               ]
             }
           ]
@@ -67,33 +68,7 @@ export default {
     handleCollapsed() {
       this.collapsed = !this.collapsed;
     }
-  }
+  },
+  created() {}
 };
 </script>
-
-<style lang="less">
-.layout-wrapper,
-.layout-outer {
-  height: 100%;
-  .header-wrapper {
-    background-color: #fff;
-    box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.1);
-    padding: 0 23px;
-    .trigger-icon {
-      transition: transform 0.3s ease;
-      cursor: pointer;
-      &.rotate {
-        transform: rotateZ(-90deg);
-        transition: transform 0.3s ease;
-      }
-    }
-  }
-
-  .content-con {
-    padding: 10px;
-  }
-  .page-card {
-    min-height: ~"calc(100vh - 84px)";
-  }
-}
-</style>

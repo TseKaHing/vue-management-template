@@ -1,19 +1,29 @@
 <template>
   <div id="app">
-    
     <router-view/>
   </div>
 </template>
+<script>
+// import axios from "axios";
+export default {
+  naem: "App",
+  data() {
+    return {};
+  },
+  mounted() {}
+};
+</script>
 
 <style lang="less">
-html, body{
+html,
+body {
   height: 100%;
 }
-body{
-margin: 0
+body {
+  margin: 0;
 }
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;

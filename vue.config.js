@@ -1,10 +1,14 @@
-const BASE_URL = process.env.NODE_ENV === 'production' ? '/iview-admin': '/'
+const BASE_URL = process.env.NODE_ENV === 'production' ? '/iview-admin' : '/'
 const path = require('path')
 
-const resolve = dir => path.join(__dirname, dir) 
+const env = process.env.NODE_ENV;
+
+
+
+const resolve = dir => path.join(__dirname, dir)
 module.exports = {
   lintOnSave: false,
-  baseUrl:BASE_URL,
+  baseUrl: BASE_URL,
   chainWebpack: config => {
     config.resolve.alias
       .set('@', resolve('src'))
@@ -14,7 +18,8 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     // 需要代理的URL, 任何位置请求都代理到这个URL
-    // proxy: 'http://localhost:4000'
+    proxy: 'http://localhost:3000'
+
   }
 
 }
