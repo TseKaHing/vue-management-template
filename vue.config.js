@@ -1,8 +1,5 @@
-const BASE_URL = process.env.NODE_ENV === 'production' ? '/iview-admin' : '/'
+const BASE_URL = process.env.NODE_ENV === 'production' ? '/' : '/'
 const path = require('path')
-
-const env = process.env.NODE_ENV;
-
 
 
 const resolve = dir => path.join(__dirname, dir)
@@ -18,7 +15,8 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     // 需要代理的URL, 任何位置请求都代理到这个URL
-    proxy: 'http://localhost:3000'
+    // proxy: 'http://129.28.177.110:3000/'
+    proxy: 'http://0.0.0.0:80/'
 
   }
 

@@ -1,0 +1,16 @@
+@baseUel = http://localhost:3000
+
+@json = Content-Type: application/json
+
+###
+GET {{baseUel}}/api/user/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjZjg1Y2ZhMDMzZTY1MzBhMGU5YmM2OCIsImlhdCI6MTU1OTc5NTkzOH0.6jph8c4P0CHY-FMZK-IxswrIuSvjjKUWVePu2xnSS3A
+
+###
+POST {{baseUel}}/api/user/login
+{{json}}
+
+{
+  "username": "ThinkBig",
+  "password": "Apple147"
+}
