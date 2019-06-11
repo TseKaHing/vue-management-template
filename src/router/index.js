@@ -33,7 +33,7 @@ const commonRoutes = [
         next()
       }
       else {
-        console.log('您尚未登录哦~请乖乖登录鸭')
+        // console.log('您尚未登录哦~请乖乖登录鸭')
         router.replace({ name: 'login' })
         next(false)
       }

@@ -21,7 +21,7 @@ app.get('*', function (req, res) {
   const html = fs.readFileSync(path.resolve(__dirname, './dist/index.html'), 'utf-8')
   res.send(html)
 })
-// 监听80端口
-app.listen(80, () => {
-  console.log('success listen 80');
+// 监听3000端口
+app.listen(3000, () => {
+  console.log('success listen 3000');
 });
