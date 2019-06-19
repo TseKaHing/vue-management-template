@@ -15,6 +15,11 @@ const gloabalRoutes = [
     component: _import('login/Login')
   },
   {
+    path: '/test',
+    name: 'test',
+    component: _import('test')
+  },
+  {
     path: '*',
     name: '404',
     component: _import('common/404')
@@ -37,7 +42,28 @@ const commonRoutes = [
         router.replace({ name: 'login' })
         next(false)
       }
-    }
+    },
+    children: [
+      {
+        path: 'personalsettings',
+        name: 'personalsettings',
+        redirect: '/login/main/personalsettings/changepwd',
+        component: _import('personalsettings/Personal-settings'),
+        children: [
+          {
+            path: 'changepwd',
+            name: 'changepwd',
+            component: _import("personalsettings/Change-password"),
+            meta: { title: "修改密码" }
+          },
+          {
+            path: 'resetpwdbyemail',
+            name: 'resetpwdbyemail',
+            component: _import("personalsettings/ResetPwdByEmail")
+          }
+        ]
+      }
+    ]
   }
 ]
 

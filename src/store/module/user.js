@@ -1,17 +1,22 @@
-const state = {
-  authorName: 'guessWhat'
+const user = {
+  state: {
+    UserName: "",  //用户名
+    UserPwd: "",  // 用户密码
+    UserInfo: {       // 用户信息
+
+    }
+  },
+  mutations: {
+    setUserName(state, UserName) {
+      state.UserName = UserName
+    },
+    setUserPwd(state, UserPwd) {
+      state.UserPwd = UserPwd
+    },
+    setUserInfo(state, UserInfo) {
+      state.UserInfo = UserInfo
+    }
+  }
 }
 
-const mutations = {
-
-}
-
-const actions = {
-
-}
-
-export default {
-  state,
-  mutations,
-  actions
-}
+export default user

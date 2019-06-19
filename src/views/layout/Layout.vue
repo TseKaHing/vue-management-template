@@ -1,12 +1,12 @@
 <template>
   <div class="layout-wrapper">
     <Layout class="layout-outer">
-      <Sider :width="300" collapsible v-model="collapsed" hide-trigger>
+      <Sider :width="256" collapsible v-model="collapsed" :collapsed-width="64" hide-trigger>
         <side-menu :collapsed="collapsed" :list="menuList"></side-menu>
       </Sider>
       <Layout>
         <Header class="header-wrapper">
-          <Icon type="md-menu" :size="32" @click.native="handleCollapsed" :class="triggerClasses"/>
+          <header-bar @on-coll-change="handleCollapsedChange" :collapsed="collapsed"></header-bar>
         </Header>
         <Content class="content-con">
           <Card shadow class="page-card">
@@ -21,34 +21,39 @@
 <script>
 import "./Layout.less";
 import SideMenu from "@/components/side-menu";
+import HeaderBar from "@/components/header-bar";
 export default {
   data() {
     return {
       collapsed: false,
       menuList: [
         {
-          title: "1",
-          name: "menu1",
-          icon: "ios-alarm"
+          title: "首页",
+          name: "HomePge",
+          icon: "md-pie"
         },
         {
-          title: "2",
-          name: "menu2",
-          icon: "ios-alarm"
+          title: "上传资源",
+          name: "UploadResources",
+          icon: "ios-cloud-upload"
         },
         {
-          title: "3",
-          name: "menu3",
-          icon: "ios-alarm",
+          title: "系统设置",
+          name: "Settings",
+          icon: "ios-settings",
           children: [
-            { title: "3-1", name: "menu3-1", icon: "ios-alarm" },
+            { title: "个人设置", name: "PersonalSettings", icon: "md-contact" },
             {
-              title: "3-2",
-              name: "menu3-2",
-              icon: "ios-alarm",
+              title: "管理资源",
+              name: "ManageResources",
+              icon: "ios-folder-open",
               children: [
-                { title: "3-2-1", name: "menu3-2-1", icon: "ios-alarm" },
-                { title: "3-2-2", name: "menu3-2-2", icon: "ios-alarm" }
+                {
+                  title: "下载资源",
+                  name: "DownloadedResources",
+                  icon: "md-download"
+                },
+                { title: "垃圾桶", name: "dropbox", icon: "logo-dropbox" }
               ]
             }
           ]
@@ -57,16 +62,13 @@ export default {
     };
   },
   components: {
-    SideMenu
+    SideMenu,
+    HeaderBar
   },
-  computed: {
-    triggerClasses() {
-      return ["trigger-icon", this.collapsed ? "rotate" : ""];
-    }
-  },
+
   methods: {
-    handleCollapsed() {
-      this.collapsed = !this.collapsed;
+    handleCollapsedChange(state) {
+      this.collapsed = state;
     }
   },
   created() {}

@@ -118,6 +118,27 @@ router.get('/api/user/all', async (req, res) => {
 
 });
 
+router.post('/api/user/pwdchange', async (req, res) => {
+  const user_pwd_change = req.body
+  console.log(models.User.find({ username: req.body.UserName }))
+  const un = models.User.find({ username: req.body.UserName })
+  console.log(un)
+  models.User.find({ username: req.body.UserName }).exec((err, data) => {
+    if (err) {
+      throw err
+    }
+    if (user_pwd_change.currentPwd) {
+      res.json({
+        status: 1,
+        message: 'ok',
+
+        username: req.body.username
+      })
+    }
+  })
+})
+
+
 
 
 module.exports = router;

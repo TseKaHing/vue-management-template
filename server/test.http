@@ -1,4 +1,5 @@
 @baseUel = http://localhost:3000
+@ip = http://192.168.199.123:8080
 
 @json = Content-Type: application/json
 
@@ -13,4 +14,15 @@ POST {{baseUel}}/api/user/login
 {
   "username": "ThinkBig",
   "password": "Apple147"
+}
+
+###
+POST  {{ip}}/api/user/pwdchange
+{{json}}
+
+{
+  "UserName": "ThinkBig",
+  "currentPwd": "qwerasdf",
+  "newPwd": "Apple147",
+  "confirmNewPwd": "Apple147"
 }

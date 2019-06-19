@@ -1,6 +1,5 @@
 <template>
   <div class="side-menu-wrapper">
-    <slot></slot>
     <Menu v-show="!collapsed" width="auto" theme="dark" @on-select="handleSelect">
       <template v-for="item in list">
         <re-submenu
@@ -10,7 +9,7 @@
           :parent="item"
         ></re-submenu>
         <menu-item v-else :key="`menu_${item.name}`" :name="item.name">
-          <Icon :type="item.icon"/>
+          <Icon :type="item.icon" :size="20"/>
           {{ item.title }}
         </menu-item>
       </template>

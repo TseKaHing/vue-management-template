@@ -8,6 +8,19 @@ export default {
       // console.log(res.data)
       // this.hasToken(target)
     },
+    loginOut(target) {
+      Lockr.rm('token', axios.defaults.headers.common['Authorization'])
+      axios.defaults.headers.common['Authorization'] = Lockr.get('token')
+      console.log(Lockr.get('token'))
+      console.log(axios.defaults.headers.common['Authorization'])
+      this.getUserNameAndRememberKey()
+      this.$router.replace({ name: target })
+
+    },
+    getUserNameAndRememberKey() {
+      Lockr.get("userName");
+      Lockr.get("rememberKey");
+    }
   },
 }
 
