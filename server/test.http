@@ -1,28 +1,37 @@
 @baseUel = http://localhost:3000
+# @ip = http://192.168.199.123:8080
 @ip = http://192.168.199.123:8080
 
 @json = Content-Type: application/json
 
 ###
-GET {{baseUel}}/api/user/all
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjZjg1Y2ZhMDMzZTY1MzBhMGU5YmM2OCIsImlhdCI6MTU1OTc5NTkzOH0.6jph8c4P0CHY-FMZK-IxswrIuSvjjKUWVePu2xnSS3A
-
-###
-POST {{baseUel}}/api/user/login
+POST  {{ip}}/api/user/register
 {{json}}
 
 {
-  "username": "ThinkBig",
-  "password": "Apple147"
+  "username": "hahaha",
+  "password": "123456789"
 }
 
 ###
-POST  {{ip}}/api/user/pwdchange
+GET {{ip}}/api/user/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjZjg1Y2ZhMDMzZTY1MzBhMGU5YmM2OCIsImlhdCI6MTU1OTc5NTkzOH0.6jph8c4P0CHY-FMZK-IxswrIuSvjjKUWVePu2xnSS3A
+ 
+###
+POST {{ip}}/api/user/login
 {{json}}
 
 {
-  "UserName": "ThinkBig",
-  "currentPwd": "qwerasdf",
-  "newPwd": "Apple147",
-  "confirmNewPwd": "Apple147"
+  "username": "hahaha",
+  "password": "123456789"
+}
+
+###
+POST   {{ip}}/api/user/pwdchange
+{{json}}
+
+{
+  "username": "hahaha",
+  "currentPwd": "123456789",
+  "newPwd": "123456789"
 }

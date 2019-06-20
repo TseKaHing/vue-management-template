@@ -4,7 +4,8 @@ var email = /^(\w+\.?)*\w+@(?:\w+\.)\w+$/
 var tel = /^1[345789]\d{9}$/
 var fax = /^(\d{3,4}-)?\d{7,8}$/
 var username = /^(\w){5,16}$/
-var pwd = /^(\w){5,25}$/
+var currentpwd = /^(\w){5,25}$/
+var newpwd = /^(\w){5,25}$/
 
 
 
@@ -54,8 +55,10 @@ var FormValidate = (function () {
           return callback(new Error('传真不能为空'))
         }
         if (!fax.test(value)) {
-          callback(new Error('请正确填写传真'))
-        } else {
+          return callback(new Error('请正确填写传真'))
+        }
+
+        else {
           callback()
         }
       }
@@ -68,7 +71,7 @@ var FormValidate = (function () {
         if (!value) {
           return callback(new Error('用户名不能为空'))
         }
-        if (!pwd.test(value)) {
+        if (!username.test(value)) {
           callback(new Error('只能输入5-16个字母、数字、下划线'))
         }
         else callback()
@@ -77,8 +80,8 @@ var FormValidate = (function () {
         if (!value) {
           return callback(new Error('密码不能为空'))
         }
-        if (!pwd.test(value)) {
-          callback(new Error('只能输入5-25个字母、数字、下划线'))
+        if (!currentpwd.test(value)) {
+          return callback(new Error('只能输入5-25个字母、数字、下划线'))
         }
         else callback()
       }
@@ -87,12 +90,37 @@ var FormValidate = (function () {
   FormValidate.Form_ChangePassword = function () {
     return {
       // 当前密码的验证
-      Pwd: function (rule, value, callback) {
+      CurrentPwd: function (rule, value, callback) {
         if (!value) {
           return callback(new Error('密码不能为空'))
         }
-        if (!pwd.test(value)) {
+        if (!currentpwd.test(value)) {
           callback(new Error('只能输入5-25个字母、数字、下划线'))
+        }
+        else callback()
+      },
+      NewPwd: function (rule, value, callback) {
+        newpwdCompared = value
+        if (!value) {
+          return callback(new Error('密码不能为空'))
+        }
+        if (!newpwd.test(value)) {
+          callback(new Error('只能输入5-25个字母、数字、下划线'))
+        }
+        else callback()
+      },
+      ConfirmNewPwd: function (rule, value, callback) {
+
+        console.log(newpwdCompared);
+        if (!value) {
+          return callback(new Error('密码不能为空'))
+        }
+        if (!newpwd.test(value)) {
+          return callback(new Error('只能输入5-25个字母、数字、下划线'))
+        }
+        if (value != newpwdCompared) {
+          return callback(new Error('两次输入的新密码不一致，请重新输入'))
+
         }
         else callback()
       }

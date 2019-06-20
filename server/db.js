@@ -19,9 +19,11 @@ const UserSchema = mongoose.Schema({
   username: { type: String, unique: true },
   password: {
     type: String, set(val) {
+      // 10 指的是生成salt的迭代次数
       return require('bcrypt').hashSync(val, 10)
     }
-  }
+  },
+  token: { type: String }
 });
 
 /************** 定义模型Model **************/

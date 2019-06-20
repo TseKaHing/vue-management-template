@@ -15,7 +15,7 @@ module.exports = {
   devServer: {
     // 需要代理的URL, 任何位置请求都代理到这个URL
     // proxy: 'http://129.28.177.110:3000/'
-    proxy: 'http://0.0.0.0:80/'
+    proxy: 'http://0.0.0.0:80'
     // proxy: 'http://192.168.199.123:3000/'
 
   }

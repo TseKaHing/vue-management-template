@@ -6,7 +6,7 @@
     :label-width="100"
   >
     <FormItem label="当前密码" prop="currentPwd">
-      <Input type="password" v-model="Form_ChangePassword.currentPwd" placeholder="请输入原密码"/>
+      <Input v-model="Form_ChangePassword.currentPwd" placeholder="请输入原密码"/>
     </FormItem>
     <FormItem label="新密码" prop="newPwd">
       <Input v-model="Form_ChangePassword.newPwd" placeholder="请确认新密码"/>
@@ -40,21 +40,21 @@ export default {
         currentPwd: [
           {
             required: true,
-            validator: Format.FormValidate.Form_ChangePassword().Pwd,
+            validator: Format.FormValidate.Form_ChangePassword().CurrentPwd,
             trigger: "blur"
           }
         ],
         newPwd: [
           {
             required: true,
-            validator: Format.FormValidate.Form_ChangePassword().Pwd,
+            validator: Format.FormValidate.Form_ChangePassword().NewPwd,
             trigger: "blur"
           }
         ],
         confirmNewPwd: [
           {
             required: true,
-            validator: Format.FormValidate.Form_ChangePassword().Pwd,
+            validator: Format.FormValidate.Form_ChangePassword().ConfirmNewPwd,
             trigger: "blur"
           }
         ]
@@ -66,11 +66,11 @@ export default {
       this.$refs[name].validate(isValid => {
         if (isValid) {
           const pwd_changed_params = {
-            UserName: this.$store.state.user.UserName,
+            username: this.$store.state.user.UserName,
             currentPwd: this.Form_ChangePassword.currentPwd,
-            newPwd: this.Form_ChangePassword.newPwd,
-            confirmNewPwd: this.Form_ChangePassword.confirmNewPwd
+            newPwd: this.Form_ChangePassword.newPwd
           };
+
           this.$axios
             .post("/api/user/pwdchange", pwd_changed_params)
             .then(res => {
