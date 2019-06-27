@@ -1,11 +1,11 @@
 export default {
   methods: {
     LoginAuthenrization(res, target) {
-      console.log(res)
-      Lockr.set('token', res.headers.token)   // 获取http头部的token
-      axios.defaults.headers.common['Authorization'] = Lockr.get('token') // 把获取到的token写入到http头部 
-      console.log(axios.defaults.headers.common['Authorization'])
-      this.$router.push({ name: target })
+      this.getAuthenrazation(res)
+      if (Lockr.get('token') !== "undefind" && res.data.status == 200) {
+        this.$router.push({ name: target })
+      }
+
       // console.log(res.data)
       // this.hasToken(target)
     },
@@ -14,11 +14,15 @@ export default {
         // const
       }
     },
+    getAuthenrazation(res) {
+      Lockr.set('token', res.headers.token)   // 获取http头部的token
+      axios.defaults.headers.common['Authorization'] = Lockr.get('token') // 把获取到的token写入到http头部 
+      console.log("头部的token：" + axios.defaults.headers.common['Authorization'])
+    },
+
     loginOut(target) {
       Lockr.rm('token', axios.defaults.headers.common['Authorization'])
       axios.defaults.headers.common['Authorization'] = Lockr.get('token')
-      console.log(Lockr.get('token'))
-      console.log(axios.defaults.headers.common['Authorization'])
       this.getUserNameAndRememberKey()
       this.$router.replace({ name: target })
 

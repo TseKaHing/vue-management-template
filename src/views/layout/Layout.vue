@@ -2,7 +2,7 @@
   <div class="layout-wrapper">
     <Layout class="layout-outer">
       <Sider :width="256" collapsible v-model="collapsed" :collapsed-width="64" hide-trigger>
-        <side-menu :collapsed="collapsed" :list="menuList"></side-menu>
+        <side-menu :collapsed="collapsed" :list="authenList"></side-menu>
       </Sider>
       <Layout>
         <Header class="header-wrapper">
@@ -25,47 +25,18 @@ import HeaderBar from "@/components/header-bar";
 export default {
   data() {
     return {
-      collapsed: false,
-      menuList: [
-        {
-          title: "首页",
-          name: "HomePge",
-          icon: "md-pie"
-        },
-        {
-          title: "上传资源",
-          name: "UploadResources",
-          icon: "ios-cloud-upload"
-        },
-        {
-          title: "系统设置",
-          name: "Settings",
-          icon: "ios-settings",
-          children: [
-            { title: "个人设置", name: "PersonalSettings", icon: "md-contact" },
-            {
-              title: "管理资源",
-              name: "ManageResources",
-              icon: "ios-folder-open",
-              children: [
-                {
-                  title: "下载资源",
-                  name: "DownloadedResources",
-                  icon: "md-download"
-                },
-                { title: "垃圾桶", name: "dropbox", icon: "logo-dropbox" }
-              ]
-            }
-          ]
-        }
-      ]
+      collapsed: false
     };
   },
   components: {
     SideMenu,
     HeaderBar
   },
-
+  computed: {
+    authenList() {
+      return this.$store.state.user.MenuList;
+    }
+  },
   methods: {
     handleCollapsedChange(state) {
       this.collapsed = state;

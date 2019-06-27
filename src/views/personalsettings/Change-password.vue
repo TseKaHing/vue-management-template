@@ -6,13 +6,13 @@
     :label-width="100"
   >
     <FormItem label="当前密码" prop="currentPwd">
-      <Input v-model="Form_ChangePassword.currentPwd" placeholder="请输入原密码"/>
+      <Input type="password" v-model="Form_ChangePassword.currentPwd" placeholder="请输入原密码"/>
     </FormItem>
     <FormItem label="新密码" prop="newPwd">
-      <Input v-model="Form_ChangePassword.newPwd" placeholder="请确认新密码"/>
+      <Input type="password" v-model="Form_ChangePassword.newPwd" placeholder="请确认新密码"/>
     </FormItem>
     <FormItem label="确认新密码" prop="confirmNewPwd">
-      <Input v-model="Form_ChangePassword.confirmNewPwd" placeholder="请再次确认新密码"/>
+      <Input type="password" v-model="Form_ChangePassword.confirmNewPwd" placeholder="请再次确认新密码"/>
     </FormItem>
     <FormItem>
       <span style="fontSize:14px">
@@ -66,6 +66,7 @@ export default {
       this.$refs[name].validate(isValid => {
         if (isValid) {
           const pwd_changed_params = {
+            UserId: this.$store.state.user.UserId,
             username: this.$store.state.user.UserName,
             currentPwd: this.Form_ChangePassword.currentPwd,
             newPwd: this.Form_ChangePassword.newPwd
@@ -75,6 +76,11 @@ export default {
             .post("/api/user/pwdchange", pwd_changed_params)
             .then(res => {
               console.log(res);
+              this.$router.push({ name: "pwdsuccess" });
+              Lockr.rm("rememberKey");
+              if (res.data.status == 403) {
+                this.$router.replace({ name: "login" });
+              }
             })
             .catch(err => {
               console.log(err);

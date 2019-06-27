@@ -57,6 +57,12 @@ const commonRoutes = [
             meta: { title: "修改密码" }
           },
           {
+            path: 'pwdsuccess',
+            name: 'pwdsuccess',
+            component: _import("personalsettings/Change_Password_Success"),
+            meta: { title: "修改成功" }
+          },
+          {
             path: 'resetpwdbyemail',
             name: 'resetpwdbyemail',
             component: _import("personalsettings/ResetPwdByEmail")

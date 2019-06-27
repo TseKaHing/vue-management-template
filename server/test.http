@@ -1,6 +1,6 @@
 @baseUel = http://localhost:3000
 # @ip = http://192.168.199.123:8080
-@ip = http://192.168.199.123:8080
+@ip = http://10.14.28.163:8080
 
 @json = Content-Type: application/json
 
@@ -9,21 +9,23 @@ POST  {{ip}}/api/user/register
 {{json}}
 
 {
-  "username": "hahaha",
-  "password": "123456789"
+  "username": "test2",
+  "password": "123456"
 }
 
 ###
 GET {{ip}}/api/user/all
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjZjg1Y2ZhMDMzZTY1MzBhMGU5YmM2OCIsImlhdCI6MTU1OTc5NTkzOH0.6jph8c4P0CHY-FMZK-IxswrIuSvjjKUWVePu2xnSS3A
+
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3Q1IiwiaWF0IjoxNTYxMjE1NzQ4LCJleHAiOjE1NjEyMTkzNDgsImlzcyI6IlRoaW5rQmlnIn0.lAsCT42QUKhPZ0fdJq464d2UzMlJalsqFMMDRNE1tqU
  
 ###
 POST {{ip}}/api/user/login
 {{json}}
 
 {
-  "username": "hahaha",
-  "password": "123456789"
+  "_id": "5d0dbf69c4917345242b6ecb",
+  "username": "test1",
+  "password": "123456"
 }
 
 ###
