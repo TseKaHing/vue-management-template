@@ -6,6 +6,11 @@ const _import = require("./import-" + process.env.NODE_ENV);
 
 const gloabalRoutes = [
   {
+    path: '/demo',
+    name: 'getUserInfo_demo',
+    component: _import('getUserInfo_demo')
+  },
+  {
     path: '/',
     redirect: '/login'
   },

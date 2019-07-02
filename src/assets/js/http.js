@@ -21,8 +21,8 @@ export default {
     },
 
     loginOut(target) {
-      Lockr.rm('token', axios.defaults.headers.common['Authorization'])
-      axios.defaults.headers.common['Authorization'] = Lockr.get('token')
+      //   Lockr.rm('token', axios.defaults.headers.common['Authorization'])
+      //   axios.defaults.headers.common['Authorization'] = Lockr.get('token')
       this.getUserNameAndRememberKey()
       this.$router.replace({ name: target })
 
@@ -31,12 +31,15 @@ export default {
       Lockr.get("userName");
       Lockr.get("rememberKey");
     },
+
+    reLogin() {
+    },
     // 异步请求，type=>请求类型，
-    asyncRequest(type, url, params, id) {
+    asyncRequest(type, url, data, id) {
       switch (type) {
         case "GET":
           return new Promise((resolve, reject) => {
-            axios.get(url, params).then(res => {
+            axios.get(url, { params: data }).then(res => {
               this.handleResponse(res.data, resolve, reject)
             }, err => {
               reject(err)
@@ -45,7 +48,9 @@ export default {
           })
         case "POST":
           return new Promise((resolve, reject) => {
+            console.log(params);
             axios.post(url, params).then(res => {
+              console.log(res);
               this.handleResponse(res.data, resolve, reject)
             }, err => {
               reject(err)

@@ -10,6 +10,18 @@ const secretOrPrivateKey = "5678FEWFWEEWGW54W4GW4E65G4E"  // 私钥
 
 /************** 创建(create) 读取(get) 更新(update) 删除(delete) **************/
 
+router.post('/getUserInfo', async (req, res, next) => {
+  console.log('请求成功');
+  res.status(200).send({
+    code: 200,
+    data: {
+      name: 'ThinkBig'
+    }
+  })
+})
+
+
+
 // 创建账号接口
 router.post('/api/user/register', (req, res) => {
   // 这里的req.body能够使用就在index.js中引入了const bodyParser = require('body-parser')
@@ -74,53 +86,51 @@ router.post('/api/user/register', (req, res) => {
 // 获取已有账号接口
 
 // 用户登录
-router.post('/api/user/login', async (req, res) => {
 
-  // 通过模型去查找数据库
+
+router.post('/api/user/login', async (req, res) => {
+  console.log(req);
+  const loginTimeStamp = Date.parse(new Date())  // 获取登陆时间戳
   models.User.find({ username: req.body.username }, (err, docs) => {
-    // 找不到该用户，则把404信息返回给客户端
+
+    // 找不到该用户，返回404
     if (docs.length == 0) {
       res.json({
         status: 404,
         message: "找不到用户" + req.body.username
       })
-      return
     }
-    const foundToken = docs[0].token
-    if (err) {
-      res.json(err)
-    }
+    // 找到该用户
     if (docs.length > 0) {
-      // token数据
+
+      // 数字签证的有效负载
       const payload = {
-        username: req.body.username
+        username: req.body.username,
+        last_loginTimeStamp: loginTimeStamp
       }
-
-      // 用户第一次登录的时候在数据库永久记录下token
       if (docs[0].token == undefined) {
+        // 第一次登录
+        console.log("第一次登录");
 
-        console.log("生成token前：", payload);
-        // 登录的时候进行数字签证
+
+        // 数字签证生成token
         let token = jwt.sign(payload, secretOrPrivateKey, {
+
           mutatePayload: true,
           issuer: "ThinkBig",
-          // expiresIn: 60 * 60 * 1   // 1小时过期
-          expiresIn: 1
+          expiresIn: 60 * 60 * 1,   // 1小时过期
         })
         // 客户端发送过来的原密码跟数据库中的密码进行比较
         const isPasswordValid = require('bcrypt').compareSync(
           req.body.password,
           docs[0].password
         )
-        console.log("生成token后：", payload);
 
-        payload.a = "jvdkjv"
-        console.log("修改", payload);
         res.setHeader('token', token)
         if (!isPasswordValid) {
           res.json({
-            status: 2,
-            message: '密码错误'
+            status: 412,
+            message: '密码错误！'
           })
         }
         docs[0].token = token
@@ -130,6 +140,7 @@ router.post('/api/user/login', async (req, res) => {
               status: 500,
               message: "服务器错误，请重试！"
             })
+            return
           }
           res.json({
             status: 200,
@@ -139,91 +150,68 @@ router.post('/api/user/login', async (req, res) => {
           })
         }))
       }
-      // 如果不是第一次登录
+      // 不是第一次登录
       else {
-        console.log("不是第一次生成token！");
-        jwt.verify(foundToken, secretOrPrivateKey, (err, decoded) => {
-          console.log("验证", decoded);
+        console.log("不是第一次登录");
+        // console.log(docs[0]);
+        jwt.verify(docs[0].token, secretOrPrivateKey, (err, decoded) => {
+          console.log("loginTimeStamp", loginTimeStamp);
+          console.log(decoded);
+
+          // 验证不通过
           if (err) {
-            // 假如知行了该语句块，则证明有错，token超时或者无效，此时在数据库删除token域
-            // res.setHeader('token', 'undefined')
-            console.log("error:" + err);
             res.json({
               status: 403,
-              message: err.message
+              message: "无效登录!"
             })
-            models.User.updateOne({ username: req.body.username }, { $unset: { token: 1 } }, (err, result) => {
-              console.log("result");
+            models.User.updateOne({ username: req.body.username }, { $unset: { token: 1 } }, { multi: true }, (err, result) => {
               console.log(result);
             })
             return
+
           }
+          // 验证通过
+          else {
+            // 如果验证的用户名与数据库一致，就返回token
 
-          // 如果验证的用户名与数据库一致，就生成新的token
-          if (decoded.username == docs[0].username) {
-            const isPasswordValid = require('bcrypt').compareSync(
-              req.body.password,
-              docs[0].password
-            )
-            console.log(isPasswordValid);
-            let newToken = jwt.sign(payload, secretOrPrivateKey, {
-              issuer: "ThinkBig",
-              expiresIn: 60 * 60 * 1   // 1小时过期
-            })
-            res.setHeader('token', newToken)
-            if (!isPasswordValid) {
-              res.json({
-                status: 2,
-                message: '密码错误'
-              })
-              return
-            }
-            models.User.updateOne({ username: req.body.username }, { $set: { token: newToken } }, (err, result) => {
-              if (err) {
+            if (decoded.username == docs[0].username) {
+              const isPasswordValid = require('bcrypt').compareSync(
+                req.body.password,
+                docs[0].password
+              )
 
-
+              if (!isPasswordValid) {
                 res.json({
-                  status: 401,
-                  message: "请求登录失败"
+                  status: 412,
+                  message: "密码错误！"
+                })
+                return
+              }
+              else {
+                res.setHeader('token', token)
+                res.json({
+                  status: 200,
+                  message: '登陆成功',
+                  username: req.body.username,
+                  _id: docs[0]._id
+
                 })
               }
 
-              console.log("更新token成功！");
+            }
 
-              res.json({
-                status: 200,
-                message: '登陆成功',
-                reset: 'token更新',
-                username: req.body.username,
-                _id: docs[0]._id
-              })
 
-            })
+
+
+
           }
-
-
         })
-
       }
-
-
-    } else {
-      res.json({
-        status: 401,
-        message: '不存在该用户'
-      })
     }
   })
-});
+})
 
 
-// 获取所有账号接口
-// router.get('/api/user/all', async (req, res) => {
-//   // 通过模型去查找数据库
-//   const users = await models.User.find()
-//   res.send(users)
-
-// });
 
 router.post('/api/user/pwdchange', async (req, res) => {
   const tokenFromClient = req.headers.authorization
@@ -310,8 +298,22 @@ router.post('/api/user/pwdchange', async (req, res) => {
 
 router.get('/api/user/authenlist', async (req, res) => {
   const tokenFromClient = req.headers.authorization
+  if (tokenFromClient == undefined) {
+    res.json({
+      status: 403,
+      message: "没有权限！"
+    })
+  }
   jwt.verify(tokenFromClient, secretOrPrivateKey, (err, decoded) => {
+    if (err) {
+      res.json({
+        status: 403,
+        message: "没有权限！"
+      })
+      return
+    }
     models.User.find({ username: decoded.username }, (err, docs) => {
+      console.log(docs[0]);
       if (docs.length == 0) {
         res.json({
           status: 404,
