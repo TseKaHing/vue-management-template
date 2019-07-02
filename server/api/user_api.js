@@ -10,15 +10,6 @@ const secretOrPrivateKey = "5678FEWFWEEWGW54W4GW4E65G4E"  // 私钥
 
 /************** 创建(create) 读取(get) 更新(update) 删除(delete) **************/
 
-router.post('/getUserInfo', async (req, res, next) => {
-  console.log('请求成功');
-  res.status(200).send({
-    code: 200,
-    data: {
-      name: 'ThinkBig'
-    }
-  })
-})
 
 
 
