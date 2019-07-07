@@ -2,7 +2,7 @@
   <div>
     <Dropdown>
       <a href="javascript:void(0)">
-        <img src="../../assets/images/avatar.png" class="avatar">
+        <img src="../../assets/images/avatar.png" class="avatar" />
       </a>
       <DropdownMenu slot="list" v-for="item in PersonInfoList" :key="`_${item.title}`">
         <div @click.prevent="personalFunc(item.title)">
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import http from "@/assets/js/http.js";
+import { mapActions } from "vuex";
 export default {
   name: "Avatar",
   data() {
@@ -30,19 +30,20 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["logout"]),
     personalFunc(title) {
       if (title == "个人设置") {
         this.personalSettings();
       } else if (title == "退出登录") {
-        this.loginOut("login");
+        this.logout();
+        this.$router.push({ name: "login" });
       }
     },
     personalSettings() {
       console.log("个人设置");
-      this.$router.push({ name: "personalsettings" });
+      this.$router.push({ name: "changepwd" });
     }
-  },
-  mixins: [http]
+  }
 };
 </script>
 

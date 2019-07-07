@@ -23,7 +23,7 @@ class HttpRequest {
   destroy(url) {
     delete this.queue[url]
     if (!Object.keys(this.queue).length) {
-      Spin.hide()  // 加载完成
+      // Spin.hide()  // 加载完成
     }
   }
   interceptors(instance, url) {
@@ -31,9 +31,10 @@ class HttpRequest {
     instance.interceptors.request.use(config => {
       // 添加全局的loading
       if (!Object.keys(this.queue).length) {
-        Spin.show()   // 加载中
+        // Spin.show()   // 加载中
       }
       this.queue[url] = true
+      config.headers['Authorization'] = getToken()
       return config
     }, err => {
       return Promise.reject(err)

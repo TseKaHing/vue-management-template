@@ -1,16 +1,23 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 <script>
-// import axios from "axios";
+import { mapMutations } from "vuex";
 export default {
-  naem: "App",
+  name: "App",
   data() {
     return {};
   },
-  mounted() {}
+  watch: {
+    $route(newRoute) {
+      this.UPDATE_ROUTER(newRoute);
+    }
+  },
+  methods: {
+    ...mapMutations(["UPDATE_ROUTER"])
+  }
 };
 </script>
 

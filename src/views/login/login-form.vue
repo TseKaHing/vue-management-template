@@ -19,14 +19,14 @@
     <FormItem prop="userName">
       <i-input v-model="LoginForm.userName" placeholder="请输入用户名">
         <span slot="prepend">
-          <Icon :size="20" type="ios-person"/>
+          <Icon :size="20" type="ios-person" />
         </span>
       </i-input>
     </FormItem>
     <FormItem prop="password">
       <i-input type="password" v-model="LoginForm.password" placeholder="请输入密码">
         <span slot="prepend">
-          <Icon :size="20" type="md-lock"/>
+          <Icon :size="20" type="md-lock" />
         </span>
       </i-input>
     </FormItem>
@@ -36,14 +36,14 @@
     <Checkbox v-model="checked">
       <span class="rememberKey">记住密码</span>
     </Checkbox>
-    <br>
-    <br>
+    <br />
+    <br />
     <FormItem>
-      <Button type="primary" @click.native.prevent="register_submit('LoginForm')" long>注册</Button>
+      <!-- <Button type="primary" @click.native.prevent="register_submit('LoginForm')" long>注册</Button> -->
       <Button
-        :loading="loading"
-        @click.native.prevent="login_submit('LoginForm')"
         type="primary"
+        @click.native.prevent="login_submit('LoginForm')"
+        @keyup.enter="login_submit('LoginForm')"
         long
       >登录</Button>
     </FormItem>
@@ -67,8 +67,8 @@ export default {
       systemName: "",
       prefix_url: "/api/user",
       LoginForm: {
-        userName: Lockr.get("userName"),
-        password: Lockr.get("rememberKey")
+        userName: "",
+        password: ""
       },
       rule_LoginForm: {
         userName: [
@@ -89,137 +89,41 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["login"]),
-    login_submit(name) {
-      this.$refs[name].validate(isValid => {});
-    },
+    ...mapActions(["register", "login"]),
     register_submit(name) {
-      this.$refs[name].validate(isValid => {});
-    }
-    // register(name) {
-    //   this.$refs[name].validate(isValid => {
-    //     if (isValid) {
-    //       const register_params = {
-    //         username: this.LoginForm.userName,
-    //         password: this.LoginForm.password
-    //       };
-    //     }
-    //   });
-    // }
+      this.$refs[name].validate(isValid => {
+        if (isValid) {
+          this.register({
+            username: this.LoginForm.userName,
+            password: this.LoginForm.password
+          })
+            .then(() => {
+              return;
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        }
+      });
+    },
+    login_submit(name) {
+      this.$refs[name].validate(isValid => {
+        if (isValid) {
+          this.login({
+            username: this.LoginForm.userName,
+            password: this.LoginForm.password
+          })
+            .then(res => {
+              console.log("登陆成功！");
 
-    // register(name) {
-    //   this.$refs.LoginForm.validate(isValid => {
-    //     if (isValid) {
-    //       const register_params = {
-    //         username: this.LoginForm.userName,
-    //         password: this.LoginForm.password
-    //       };
-    //       this.$axios
-    //         .post("/api/user/register/", register_params)
-    //         .then(res => {
-    //           console.log(res);
-    //           // 把从服务端获取到的_id写入到浏览器缓存并持久化存储到本地
-    //           if (res.data.status == 1001) {
-    //             this.$Message.error(res.data.message);
-    //           } else if (res.data.status == 1000) {
-    //             const UserId = res.data._id;
-    //             console.log(UserId);
-    //             Lockr.set("UserId", res.data._id);
-    //             this.$store.commit("setUserId", res.data._id);
-    //             console.log(
-    //               "register-UserId：" + this.$store.state.user.UserId
-    //             );
-    //             this.$store.commit("setUserName", this.LoginForm.userName);
-    //             this.$store.commit("setUserPwd", this.LoginForm.password);
-    //             this.$Message.info(res.data.message);
-    //           }
-    //         })
-    //         .catch(err => {
-    //           console.log(err);
-    //         });
-    //     }
-    //   });
-    // },
-    // login(name) {
-    //   this.$refs.LoginForm.validate(isValid => {
-    //     if (isValid) {
-    //       const login_params = {
-    //         username: this.LoginForm.userName,
-    //         password: this.LoginForm.password
-    //       };
-    //       console.log(login_params.username);
-    //       this.asyncRequest("GET", this.prefix_url + "/login", login_params)
-    //         .then(res => {
-    //           console.log(res);
-    //         })
-    //         .catch(err => {
-    //           console.log(err);
-    //         });
-    // this.$axios
-    //   .post("/api/user/login", login_params)
-    //   .then(res => {
-    //     console.log(res);
-    //     if (res.data.status == 404) {
-    //       this.$Message.error(res.data.message);
-    //     }
-    //     if (res.data.status == 2) {
-    //       this.$Message.error(res.data.message);
-    //     }
-    //     if (res.data.status == 403) {
-    //       this.$Message.error(res.data.message);
-    //       Lockr.rm("token");
-    //       this.login(login_params);
-    //       this.getAuthenrazation(res);
-    //       Lockr.get("token");
-    //       // 获取http头部的token之后渲染主页菜单项
-    //       this.getAuthenMenuList(login_params);
-    //     }
-    //     if (res.data.status == 401) {
-    //       this.$Message.error(res.data.message);
-    //       this.login(login_params);
-    //       this.getAuthenrazation(res);
-    //       Lockr.get("token");
-    //       // 获取http头部的token之后渲染主页菜单项
-    //       this.getAuthenMenuList(login_params);
-    //     }
-    //     Lockr.set("UserId", res.data._id);
-    //     this.$store.commit("setUserId", res.data._id);
-    //     console.log("login-UserId:" + this.$store.state.user.UserId);
-    //     this.$store.commit("setUserName", this.LoginForm.userName);
-    //     this.$store.commit("setUserPwd", this.LoginForm.password);
-    //     if (!this.checked) {
-    //       Lockr.rm("userName");
-    //       Lockr.rm("rememberKey");
-    //     } else {
-    //       Lockr.set("userName", this.LoginForm.userName);
-    //       Lockr.set("rememberKey", this.LoginForm.password);
-    //     }
-    //     this.LoginAuthenrization(res, "main"); // 调用http.js文件中混入的LoginAuthenrization方法，main指向路由name为main的组件
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-    //     }
-    //   });
-    // }
-    // getAuthenMenuList(login_params) {
-    //   console.log(login_params);
-    //   this.$axios
-    //     .get("/api/user/authenlist", {
-    //       params: { username: login_params.username }
-    //     })
-    //     .then(res => {
-    //       console.log(res.data);
-    //       this.$store.commit("setMenuList", res.data.menuList);
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //     });
-    // }
-  },
-  created() {
-    this.getUserNameAndRememberKey();
+              this.$router.push({ name: "home" });
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        }
+      });
+    }
   }
-  // mixins: [http]
 };
 </script>

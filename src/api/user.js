@@ -11,7 +11,7 @@ export const getUserInfo = ({ userId }) => {
 }
 
 export const register = ({ username, password }) => {
-  return axios.request.request({
+  return axios.request({
     url: '/user/register',
     method: 'post',
     data: {
@@ -32,3 +32,21 @@ export const login = ({ username, password }) => {
   })
 }
 
+export const authorization = () => {
+  return axios.request({
+    url: '/user/authorization',
+    method: 'get'
+  })
+}
+
+export const changepwd = ({ user_id, currentPwd, newPwd }) => {
+  return axios.request({
+    url: '/user/changepwd',
+    method: 'post',
+    data: {
+      user_id,
+      currentPwd,
+      newPwd
+    }
+  })
+}

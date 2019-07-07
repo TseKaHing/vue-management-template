@@ -1,6 +1,6 @@
 @baseUel = http://localhost:3000
 # @ip = http://192.168.199.123:8080
-@ip = http://10.14.28.163:8080
+@ip = http://192.168.0.102:8080
 
 @json = Content-Type: application/json
 
@@ -9,7 +9,7 @@ POST  {{ip}}/api/user/register
 {{json}}
 
 {
-  "username": "test2",
+  "username": "123456",
   "password": "123456"
 }
 

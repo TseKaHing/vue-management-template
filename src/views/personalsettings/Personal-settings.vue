@@ -1,20 +1,21 @@
 <template>
   <div>
     <template>
+      <div class="padding-box"></div>
       <Row>
         <i-col span="5">
           <Card dis-hover :width="100">
             <p slot="title">
-              <Icon type="md-settings" size="22"/>
+              <Icon type="md-settings" size="22" />
               <font class="font-padding">个人设置</font>
             </p>
             <template v-for="item in settingList">
               <Row :key="`setting_${item.title}`">
                 <i-col>
-                  <router-link to="/login/main/personalsettings/changepwd">
+                  <router-link to="/settings/personalsettings/changepwd">
                     <div class="div-padding">
                       <span>{{ item.title }}</span>
-                      <Icon class="icon-padding" :type="item.icon" size="20px"/>
+                      <Icon class="icon-padding" :type="item.icon" size="20px" />
                     </div>
                   </router-link>
                 </i-col>
@@ -22,7 +23,7 @@
             </template>
           </Card>
         </i-col>
-        <i-col span="18" offset="1">
+        <i-col span="12" offset="1">
           <Card dis-hover>
             <p slot="title">{{ $route.meta.title }}</p>
             <router-view></router-view>
@@ -57,6 +58,9 @@ export default {
 </script>
 
 <style lang="less">
+.padding-box {
+  padding-top: 30px;
+}
 .font-padding {
   padding-left: 10px;
   vertical-align: middle;

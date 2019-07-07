@@ -1,6 +1,15 @@
 <template>
   <div class="side-menu-wrapper">
-    <Menu v-show="!collapsed" width="auto" theme="dark" @on-select="handleSelect">
+    <slot></slot>
+    <Menu
+      ref="menu"
+      :active-name="$route.name"
+      :open-names="openNames"
+      v-show="!collapsed"
+      width="auto"
+      theme="dark"
+      @on-select="handleSelect"
+    >
       <template v-for="item in list">
         <re-submenu
           v-if="item.children"
@@ -9,8 +18,8 @@
           :parent="item"
         ></re-submenu>
         <menu-item v-else :key="`menu_${item.name}`" :name="item.name">
-          <Icon :type="item.icon" :size="20"/>
-          {{ item.title }}
+          <Icon :type="item.meta.icon" :size="20" />
+          {{ item.meta.title }}
         </menu-item>
       </template>
     </Menu>
@@ -24,9 +33,16 @@
           :key="`drop_${item.name}`"
           :parent="item"
         ></re-dropdown>
-        <Tooltip v-else transfer :content="item.title" placement="right" :key="`drop_${item.name}`">
+        <Tooltip
+          v-else
+          transfer
+          :content="item.meta.title"
+          placement="right"
+          :key="`drop_${item.name}`"
+          style="zIndex:1002"
+        >
           <span @click="handleClick(item.name)" class="drop-menu-span">
-            <Icon :type="item.icon" color="#fff" :size="20"></Icon>
+            <Icon :type="item.meta.icon" color="#fff" :size="20"></Icon>
           </span>
         </Tooltip>
       </template>
@@ -37,6 +53,9 @@
 <script>
 import ReSubmenu from "./Re-submenu";
 import ReDropdown from "./Re-dropdown";
+import { mapState } from "vuex";
+import { getOpenArrByName } from "@/lib/util";
+import { async } from "q";
 export default {
   name: "SideMenu",
   components: {
@@ -53,9 +72,26 @@ export default {
       default: () => []
     }
   },
+  computed: {
+    ...mapState({
+      routers: state => state.router.routers
+    }),
+    openNames() {
+      return getOpenArrByName(this.$route.name, this.routers);
+    }
+  },
+  watch: {
+    openNames() {
+      this.$nextTick(() => {
+        this.$refs.menu.updateOpened();
+      });
+    }
+  },
   methods: {
     handleSelect(name) {
-      console.log(name);
+      this.$router.push({
+        name
+      });
     },
     handleClick(name) {
       console.log(name);

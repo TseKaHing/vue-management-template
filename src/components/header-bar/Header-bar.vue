@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="header-left">
-      <Icon type="md-menu" :size="32" @click.native="handleCollapsed" :class="triggerClasses"/>
+      <Icon type="md-menu" :size="32" @click.native="handleCollapsed" :class="triggerClasses" />
     </div>
     <div class="header-right">
-      <Avatar/>
+      <Avatar />
     </div>
   </div>
 </template>
@@ -42,7 +42,6 @@ export default {
   }
   &-right {
     float: right;
-    // z-index: 101;
     vertical-align: middle;
   }
 }

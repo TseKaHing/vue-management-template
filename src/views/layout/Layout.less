@@ -20,11 +20,28 @@
     }
   }
 
+
+  .sider-outer {
+    height: 100%;
+    overflow: hidden;
+
+    .ivu-layout-sider-children {
+      margin-right: -20px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+  }
+
   .content-con {
     padding: 10px;
+
+    .ivu-tabs-bar {
+      margin-bottom: 0;
+
+    }
   }
 
   .page-card {
-    min-height: ~"calc(100vh - 84px)";
+    min-height: ~"calc(100vh - 84px - 48px)";
   }
 }

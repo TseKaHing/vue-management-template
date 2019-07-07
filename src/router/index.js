@@ -1,90 +1,65 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { routes } from './router'
+import store from '@/store'
+import { setTitle, setToken, getToken } from '@/lib/util'
+
 Vue.use(Router)
 
-const _import = require("./import-" + process.env.NODE_ENV);
-
-const gloabalRoutes = [
-  {
-    path: '/demo',
-    name: 'getUserInfo_demo',
-    component: _import('getUserInfo_demo')
-  },
-  {
-    path: '/',
-    redirect: '/login'
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: _import('login/Login')
-  },
-  {
-    path: '/test',
-    name: 'test',
-    component: _import('test')
-  },
-  {
-    path: '*',
-    name: '404',
-    component: _import('common/404')
-  },
-]
-
-const commonRoutes = [
-  {
-    path: '/login/main',
-    name: 'main',
-    component: _import('layout/Layout'),
-    // 在进入main页面的时候需要判断头部是否带有token
-    beforeEnter: (to, from, next) => {
-      const token = Lockr.get('token')
-      if (token) {
-        next()
-      }
-      else {
-        // console.log('您尚未登录哦~请乖乖登录鸭')
-        router.replace({ name: 'login' })
-        next(false)
-      }
-    },
-    children: [
-      {
-        path: 'personalsettings',
-        name: 'personalsettings',
-        redirect: '/login/main/personalsettings/changepwd',
-        component: _import('personalsettings/Personal-settings'),
-        children: [
-          {
-            path: 'changepwd',
-            name: 'changepwd',
-            component: _import("personalsettings/Change-password"),
-            meta: { title: "修改密码" }
-          },
-          {
-            path: 'pwdsuccess',
-            name: 'pwdsuccess',
-            component: _import("personalsettings/Change_Password_Success"),
-            meta: { title: "修改成功" }
-          },
-          {
-            path: 'resetpwdbyemail',
-            name: 'resetpwdbyemail',
-            component: _import("personalsettings/ResetPwdByEmail")
-          }
-        ]
-      }
-    ]
-  }
-]
-
 const router = new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: gloabalRoutes.concat(commonRoutes)
-
+  routes,
+  mode: 'history'
 })
 
+// const HAS_LOGINED = false
 
+var addRoutesFlag = false
+
+router.beforeEach((to, from, next) => {
+  to.meta && setTitle(to.meta.title)
+  const token = getToken()
+  if (token) {
+    addRoutesFlag = !store.state.router.hasGetRules
+    if (addRoutesFlag) {
+      store.dispatch('authorization').then(rules => {
+        store.dispatch('concatRoutes', rules).then(routers => {
+          router.addRoutes(routers)
+          next({ ...to, replace: true })
+        }).catch(() => {
+          next({ name: 'login' })
+        })
+      }).catch(() => {
+        setToken('')
+        next({ name: 'login' })
+      })
+    } else {
+      next()
+    }
+  } else {
+    if (to.name === 'login') next()
+    else next({ name: 'login' })
+  }
+})
+
+// router.beforeResolve
+
+router.afterEach((to, from) => {
+  // logining = false
+})
+
+/**
+ * 1. 导航被触发
+ * 2. 在失活的组件（即将离开的页面组件）里调用离开守卫 beforeRouteLeave
+ * 3. 调用全局的前置守卫 beforeEach
+ * 4. 在重用的组件里调用 beforeRouteUpdate
+ * 5. 调用路由独享的守卫 beforeEnter
+ * 6. 解析异步路由组件
+ * 7. 在被激活的组件（即将进入的页面组件）里调用 beforeRouteEnter
+ * 8. 调用全局的解析守卫 beforeResolve
+ * 9. 导航被确认
+ * 10. 调用全局的后置守卫 afterEach
+ * 11. 触发DOM更新
+ * 12. 用创建好的实例调用beforeRouterEnter守卫里传给next的回调函数
+ */
 
 export default router

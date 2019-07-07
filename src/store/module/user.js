@@ -1,3 +1,7 @@
+import { register, login, authorization, changepwd } from '@/api/user'
+import { setToken, setUserInfo } from '@/lib/util'
+import { Message } from 'iview'
+
 const user = {
   state: {
     UserId: "",
@@ -6,7 +10,8 @@ const user = {
     MenuList: [],
     UserInfo: {       // 用户信息
 
-    }
+    },
+    rules: {}
   },
   mutations: {
     setUserId(state, UserId) {
@@ -23,8 +28,102 @@ const user = {
     },
     setUserInfo(state, UserInfo) {
       state.UserInfo = UserInfo
+    },
+    SET_RULES(state, rules) {
+      state.rules = rules
     }
+  },
+  actions: {
+    register({ commit }, { username, password }) {
+      return new Promise((resolve, reject) => {
+        register({ username, password }).then(res => {
+          if (res.data.code === 1000) {
+            console.log(res.data.message);
+            resolve()
+          } else {
+            reject(new Error(res.data.message))
+          }
+        }, err => {
+          reject(err)
+        }
+        )
+      })
+    },
+
+    login({ commit }, { username, password }) {
+      return new Promise((resolve, reject) => {
+        login({ username, password }).then(res => {
+          // set token
+          console.log('id', res.data.data.found_user);
+          const { _id, username, password, degree, token } = res.data.data.found_user
+          setUserInfo(_id, username, password, degree)
+          console.log(res.data.data.token);
+          if (res.data.code == 200 && token) {
+
+            setToken(res.data.data.token)
+            resolve()
+
+          }
+          else {
+            reject(new Error("无登录权限！"))
+          }
+        }, err => {
+          reject(err)
+        }
+
+        )
+      })
+    },
+
+    authorization({ commit }, token) {
+      return new Promise((resolve, reject) => {
+        authorization().then(res => {
+          // console.log(res);
+          if (parseInt(res.data.code) === 401) {
+            reject(new Error('非法token！'))
+          } else {
+            setToken(res.data.data.token)
+            resolve(res.data.data.rules.page)
+            commit('SET_RULES', res.data.data.rules.component)
+          }
+        }, err => {
+          reject(err)
+        })
+      })
+    },
+
+    changepwd({ commit }, { user_id, currentPwd, newPwd }) {
+      return new Promise((resolve, reject) => {
+        changepwd({ user_id, currentPwd, newPwd }).then(res => {
+          // console.log(res);
+          if (res.data.code === 412 || res.data.code === 401) {
+            console.log(res);
+            Message.error(res.data.message)
+            reject(new Error(res.data.message))
+          }
+          else if (res.data.code === 200) {
+            resolve()
+          }
+          // resolve(res)
+          else reject(new Error("修改密码失败！"))
+        }, err => {
+          console.log(err.message);
+          reject(err)
+        }
+        )
+      })
+    },
+    logout() {
+      setToken('')
+
+    }
+
+
   }
+
+
+
+
 }
 
 export default user

@@ -8,6 +8,7 @@ const user_api = require('./api/user')
 const fs = require('fs');
 // 引入处理路径的模块
 const path = require('path');
+var cookieParser = require('cookie-parser');
 // 引入处理post数据的模块
 const bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken')
@@ -19,13 +20,15 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json())
+app.use(cookieParser());
 
 
-
-// 白名单用户
+// 白名单用户, 如果在白名单中就不同jwt校验
 const whiteList_url = {
-  get: [],
+  get: ['/user/authorization',],
   post: [
+    '/user/register',
+    '/api/user/register',
     '/user/getUserInfo',
     '/user/login',
   ]
@@ -54,20 +57,20 @@ app.all('*', async (req, res, next) => {
     const token = req.headers.authorization
     if (!token) {
       // token 为 undefined (不存在)
-      res.status(401).send({
+      res.status(401).json({
         code: 401,
         message: '没有操作权限'
       })
     } else {
       jwt.verify(token, secretOrPrivateKey, (err, decoded) => {
         if (err) {
-          res.status(401).send({
+          res.status(401).json({
             code: 401,
             message: '非法操作，没有操作权限',
             data: {}
           })
         } else {
-          req.username = decoded.name  // 把验证获得的 decoded.username 赋值给 请求的 req.username
+          req.body.username = decoded.name  // 把验证获得的 decoded.username 赋值给 请求的 req.body.username
           next()
         }
       })

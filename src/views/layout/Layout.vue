@@ -1,17 +1,43 @@
 <template>
   <div class="layout-wrapper">
     <Layout class="layout-outer">
-      <Sider :width="256" collapsible v-model="collapsed" :collapsed-width="64" hide-trigger>
-        <side-menu :collapsed="collapsed" :list="authenList"></side-menu>
+      <Sider
+        :width="256"
+        collapsible
+        v-model="collapsed"
+        :collapsed-width="64"
+        hide-trigger
+        reverse-arrow
+        class="sider-outer"
+      >
+        <side-menu :collapsed="collapsed" :list="routers"></side-menu>
       </Sider>
       <Layout>
         <Header class="header-wrapper">
           <header-bar @on-coll-change="handleCollapsedChange" :collapsed="collapsed"></header-bar>
         </Header>
         <Content class="content-con">
-          <Card shadow class="page-card">
-            <router-view></router-view>
-          </Card>
+          <div>
+            <Tabs
+              type="card"
+              closable
+              :animated="false"
+              :value="getTabNameByRoute($route)"
+              @on-click="handleClickTab"
+            >
+              <TabPane
+                :label="labelRender(item)"
+                :name="getTabNameByRoute(item)"
+                v-for="(item, index) in tabList"
+                :key="`tabNav_${index}`"
+              ></TabPane>
+            </Tabs>
+          </div>
+          <div class="view-box">
+            <Card shadow class="page-card">
+              <router-view></router-view>
+            </Card>
+          </div>
         </Content>
       </Layout>
     </Layout>
@@ -20,12 +46,15 @@
 
 <script>
 import "./Layout.less";
-import SideMenu from "@/components/side-menu";
-import HeaderBar from "@/components/header-bar";
+import SideMenu from "_c/side-menu";
+import HeaderBar from "_c/header-bar";
+import { mapState, mapMutations, mapActions } from "vuex";
+import { getTabNameByRoute, getRouteById } from "@/lib/util";
 export default {
   data() {
     return {
-      collapsed: false
+      collapsed: false,
+      getTabNameByRoute
     };
   },
   components: {
@@ -33,13 +62,53 @@ export default {
     HeaderBar
   },
   computed: {
-    authenList() {
-      return this.$store.state.user.MenuList;
-    }
+    ...mapState({
+      tabList: state => state.tabNav.tabList,
+      routers: state =>
+        state.router.routers.filter(item => {
+          return (
+            item.path !== "*" &&
+            item.name !== "login" &&
+            item.name != "pwdsuccess"
+          );
+        })
+    })
   },
   methods: {
+    ...mapMutations(["UPDATE_ROUTER"]),
     handleCollapsedChange(state) {
       this.collapsed = state;
+    },
+    ...mapActions(["handleRemove"]),
+    handleClickTab(id) {
+      let route = getRouteById(id);
+      this.$router.push(route);
+    },
+    handleTabRemove(id, event) {
+      event.stopPropagation(); // 阻止冒泡
+      this.handleRemove({
+        id,
+        $route: this.$route
+      }).then(nextRoute => {
+        this.$router.push(nextRoute);
+      });
+    },
+    labelRender(item) {
+      return h => {
+        return (
+          <div>
+            <span style="marginLeft: 10px">{item.meta.title}</span>
+            <icon
+              type="md-close-circle"
+              style="line-height:12px;marginLeft: 10px"
+              nativeOn-click={this.handleTabRemove.bind(
+                this,
+                getTabNameByRoute(item)
+              )}
+            ></icon>
+          </div>
+        );
+      };
     }
   },
   created() {}
