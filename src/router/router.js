@@ -20,13 +20,13 @@ export const routerMap = [
         meta: { index: 2, title: '主页数据展示', icon: 'md-stats' }
       },
       {
-        path: '/demo',
+        path: 'demo',
         name: 'getUserInfo_demo',
         component: () => import('@/views/getUserInfo_demo.vue'),
         meta: { index: 2, title: 'demo', icon: "ios-folder-open" }
       },
       {
-        path: '/test',
+        path: 'test',
         name: 'test',
         component: () => import('@/views/test.vue'),
         meta: { index: 2, title: 'test', icon: "logo-javascript" }

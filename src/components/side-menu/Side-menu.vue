@@ -37,9 +37,8 @@
           v-else
           transfer
           :content="item.meta.title"
-          placement="right"
+          placement="right-start"
           :key="`drop_${item.name}`"
-          style="zIndex:1002"
         >
           <span @click="handleClick(item.name)" class="drop-menu-span">
             <Icon :type="item.meta.icon" color="#fff" :size="20"></Icon>
@@ -115,5 +114,9 @@ export default {
     padding: 5px;
     margin: 0 auto;
   }
+}
+
+.ivu-select-dropdown {
+  z-index: 10000;
 }
 </style>

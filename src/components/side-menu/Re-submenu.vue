@@ -11,7 +11,6 @@
         :name="item.name"
         :parent="item"
         :size="20"
-        style="zIndex:1002"
       ></re-submenu>
       <menu-item v-else :key="`menu_${item.name}`" :name="item.name">
         <Icon :type="item.meta.icon" :size="20" />
@@ -34,4 +33,7 @@ export default {
 </script>
 
 <style>
+.ivu-select-dropdown {
+  z-index: 10000;
+}
 </style>

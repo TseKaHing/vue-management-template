@@ -1,7 +1,8 @@
 <template>
   <div>
     <div class="header-left">
-      <Icon type="md-menu" :size="32" @click.native="handleCollapsed" :class="triggerClasses" />
+      <Icon type="md-menu" :size="30" @click.native="handleCollapsed" :class="triggerClasses" />
+      <bread-crumb style="margin-left: 30px"></bread-crumb>
     </div>
     <div class="header-right">
       <Avatar />
@@ -11,6 +12,7 @@
 
 <script>
 import Avatar from "./Avatar";
+import BreadCrumb from "./Bread-crumb";
 export default {
   name: "HeaderBar",
   props: {
@@ -19,7 +21,8 @@ export default {
     }
   },
   components: {
-    Avatar
+    Avatar,
+    BreadCrumb
   },
   computed: {
     triggerClasses() {
