@@ -21,7 +21,7 @@ const getTabListToLocal = tabList => {
 
 const mutations = {
   UPDATE_ROUTER(state, route) {
-    if (!routeHasExist(state.tabList, route) && route.name !== 'login' && route.name !== 'base' && route.name !== 'pwdsuccess') {
+    if (!routeHasExist(state.tabList, route) && route.name !== 'login' && route.name !== 'pwdsuccess') {
       state.tabList.push(route)
     }
     localSave('tabList', JSON.stringify(getTabListToLocal(state.tabList)))
@@ -41,12 +41,14 @@ const actions = {
       })
       // 关闭后，跳转到另一页
       let len = state.tabList.length
+
+
       let nextRoute = {}
       if (routeEqual($route, state.tabList[index])) {
         if (index < len - 1) nextRoute = state.tabList[index + 1]
         else nextRoute = state.tabList[index - 1]
       }
-      const { name, params, query } = nextRoute || { name: 'home_index' }
+      const { name, params, query } = nextRoute || { name: 'homepage' }
       commit('REMOVE_TAB', index)
       resolve({
         name, params, query

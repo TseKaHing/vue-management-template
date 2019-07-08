@@ -40,12 +40,7 @@
     <br />
     <FormItem>
       <!-- <Button type="primary" @click.native.prevent="register_submit('LoginForm')" long>注册</Button> -->
-      <Button
-        type="primary"
-        @click.native.prevent="login_submit('LoginForm')"
-        @keyup.enter="login_submit('LoginForm')"
-        long
-      >登录</Button>
+      <Button type="primary" @click.native.prevent="login_submit('LoginForm')" long>登录</Button>
     </FormItem>
   </Form>
 </template>
@@ -55,6 +50,7 @@ import SlideVerify from "_c/slide-verify";
 import Format from "@/assets/js/Format.js";
 import { mapActions } from "vuex";
 export default {
+  name: "Login-Form",
   component: {
     SlideVerify
   },
@@ -63,7 +59,6 @@ export default {
       // 这里的 checked 表示 记住密码那个 checkbox 的状态
       checked: false,
       // loading 表示点击 登陆 按钮 的加载状态，初始化为 false
-      loading: false,
       systemName: "",
       prefix_url: "/api/user",
       LoginForm: {
@@ -115,7 +110,7 @@ export default {
           })
             .then(res => {
               console.log("登陆成功！");
-
+              this.$Message.info("登陆成功！");
               this.$router.push({ name: "home" });
             })
             .catch(err => {
@@ -124,6 +119,13 @@ export default {
         }
       });
     }
+  },
+  mounted() {
+    window.addEventListener("keyup", e => {
+      if (e.keyCode === 13) {
+        this.login_submit("LoginForm");
+      }
+    });
   }
 };
 </script>

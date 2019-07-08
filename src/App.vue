@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view />
+    <transition :name="transitionName">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 <script>
@@ -8,11 +10,17 @@ import { mapMutations } from "vuex";
 export default {
   name: "App",
   data() {
-    return {};
+    return { transitionName: "" };
   },
   watch: {
-    $route(newRoute) {
-      this.UPDATE_ROUTER(newRoute);
+    $route(to, from) {
+      this.UPDATE_ROUTER(to);
+      if (to.meta.index > from.meta.index) {
+        //设置动画名称
+        this.transitionName = "slide-left";
+      } else {
+        this.transitionName = "slide-right";
+      }
     }
   },
   methods: {
@@ -45,5 +53,30 @@ body {
       color: #42b983;
     }
   }
+}
+
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+  will-change: transform;
+  transition: all 500ms;
+  position: absolute;
+}
+.slide-right-enter {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
+}
+.slide-right-leave-active {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.slide-left-enter {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.slide-left-leave-active {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
 }
 </style>

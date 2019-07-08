@@ -20,7 +20,7 @@ window.md5 = md5
 Vue.prototype.$axios = axios
 axios.defaults.timeout = 1000 * 15;
 axios.defaults.headers.common['Authorization'] = Lockr.get('token')
-console.log(axios.defaults.headers)
+// console.log(axios.defaults.headers)
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
 

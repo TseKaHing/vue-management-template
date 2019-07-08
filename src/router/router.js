@@ -8,6 +8,7 @@ export const routerMap = [
     redirect: '/home/homepage',
     component: Layout,
     meta: {
+      index: 1,
       title: '首页',
       icon: "ios-home"
     },
@@ -16,19 +17,19 @@ export const routerMap = [
         path: 'homepage',
         name: 'homepage',
         component: () => import('@/views/homepage'),
-        meta: { title: '主页数据展示', icon: 'md-stats' }
+        meta: { index: 2, title: '主页数据展示', icon: 'md-stats' }
       },
       {
         path: '/demo',
         name: 'getUserInfo_demo',
         component: () => import('@/views/getUserInfo_demo.vue'),
-        meta: { title: 'demo', icon: "ios-folder-open" }
+        meta: { index: 2, title: 'demo', icon: "ios-folder-open" }
       },
       {
         path: '/test',
         name: 'test',
         component: () => import('@/views/test.vue'),
-        meta: { title: 'test', icon: "logo-javascript" }
+        meta: { index: 2, title: 'test', icon: "logo-javascript" }
       },
     ]
   },
@@ -39,25 +40,25 @@ export const routerMap = [
     component: Layout,
     // redirect: '/login/main/personalsettings/changepwd',
     // component: () => import('@/views/personalsettings/Personal-settings.vue'),
-    meta: { title: '系统设置', icon: "md-settings" },
+    meta: { index: 1, title: '系统设置', icon: "md-settings" },
     children: [
       {
         path: 'personalSettings',
         name: 'personalSettings',
         component: () => import('@/views/personalsettings/Personal-settings.vue'),
-        meta: { title: '个人设置', icon: 'md-person' },
+        meta: { index: 2, title: '个人设置', icon: 'md-person' },
         children: [
           {
             path: 'changepwd',
             name: 'changepwd',
             component: () => import("@/views/personalsettings/Change-password.vue"),
-            meta: { title: '修改密码', icon: 'md-lock' }
+            meta: { index: 3, title: '修改密码', icon: 'md-lock' }
           },
           {
             path: 'resetpwdbyemail',
             name: 'resetpwdbyemail',
             component: () => import("@/views/personalsettings/ResetPwdByEmail.vue"),
-            meta: { title: '重置密码', icon: 'md-refresh' }
+            meta: { index: 3, title: '重置密码', icon: 'md-refresh' }
           }
         ]
       }
@@ -80,19 +81,21 @@ export const routes = [
   // },
 
   {
-    path: '/login',
+    path: '/',
     name: 'login',
     component: () => import('@/views/login/Login.vue'),
-    meta: { title: '登录' }
+
+    meta: { index: 0, title: '登录' }
   },
   {
     path: 'pwdsuccess',
     name: 'pwdsuccess',
     component: () => import("@/views/personalsettings/Change_Password_Success.vue"),
-    meta: { title: '修改成功', icon: 'md-checkmark-circle' }
+    meta: { index: 0, title: '修改成功', icon: 'md-checkmark-circle' }
   },
   {
     path: '*',
-    component: () => import('@/views/common/404.vue')
+    component: () => import('@/views/common/404.vue'),
+    meta: { index: 0 }
   }
 ]

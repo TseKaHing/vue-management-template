@@ -113,13 +113,12 @@ router.post('/login', async (req, res) => {
     models.User.findOne({ username }, (err, user) => {
 
       if (user === null) {
-        res.status(401).json({
+        res.json({
           code: 401,
           message: "不存在该用户！"
         })
       } else {
         // 找到该用户
-        console.log(user);
         const found_user = user
         // 判断密码是否正确
         const isPasswordCorrect = require('bcrypt').compareSync(
@@ -138,8 +137,6 @@ router.post('/login', async (req, res) => {
             issuer: "ThinkBig",
             expiresIn: 60 * 60 // 60s
           })
-
-
           user.token = token
           models.User(user.save(err => {
             if (err) {
@@ -149,7 +146,6 @@ router.post('/login', async (req, res) => {
               })
               return
             }
-            console.log(user);
             res.setHeader('token', token)
             res.status(200).json({
               code: 200,
@@ -165,7 +161,7 @@ router.post('/login', async (req, res) => {
 
         } else {
           // 密码不正确
-          res.status(401).json({
+          res.json({
             code: 401,
             message: '密码不正确！'
           })
@@ -178,7 +174,7 @@ router.post('/login', async (req, res) => {
 
   } else {
     // 用户名为空
-    res.status(401).json({
+    res.json({
       code: 401,
       message: "用户名为空！"
     })

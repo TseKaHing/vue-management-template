@@ -24,7 +24,9 @@
               :animated="false"
               :value="getTabNameByRoute($route)"
               @on-click="handleClickTab"
+              class="content-tab"
             >
+              <!-- <TabPane :name="$route"></TabPane> -->
               <TabPane
                 :label="labelRender(item)"
                 :name="getTabNameByRoute(item)"

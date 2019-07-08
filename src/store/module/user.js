@@ -53,20 +53,23 @@ const user = {
     login({ commit }, { username, password }) {
       return new Promise((resolve, reject) => {
         login({ username, password }).then(res => {
-          // set token
-          console.log('id', res.data.data.found_user);
-          const { _id, username, password, degree, token } = res.data.data.found_user
-          setUserInfo(_id, username, password, degree)
-          console.log(res.data.data.token);
-          if (res.data.code == 200 && token) {
 
-            setToken(res.data.data.token)
+          if (res.data.code === 401) {
+            Message.error(res.data.message)
+            return
+          } else if (res.data.code == 200 && res.data.data.token) {
+            const { _id, username, password, degree, token } = res.data.data.found_user
+            setToken(token)
+            setUserInfo(_id, username, password, degree)
             resolve()
-
+            return
           }
           else {
             reject(new Error("无登录权限！"))
           }
+
+
+
         }, err => {
           reject(err)
         }

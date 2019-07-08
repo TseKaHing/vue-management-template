@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { routes } from './router'
 import store from '@/store'
-import { setTitle, setToken, getToken } from '@/lib/util'
+import { setTitle, setToken, getToken, localSave } from '@/lib/util'
 
 Vue.use(Router)
 
@@ -18,8 +18,10 @@ var addRoutesFlag = false
 router.beforeEach((to, from, next) => {
   to.meta && setTitle(to.meta.title)
   const token = getToken()
+  // 有token
   if (token) {
     addRoutesFlag = !store.state.router.hasGetRules
+    // 未获取主页的路由规则
     if (addRoutesFlag) {
       store.dispatch('authorization').then(rules => {
         store.dispatch('concatRoutes', rules).then(routers => {
@@ -30,12 +32,20 @@ router.beforeEach((to, from, next) => {
         })
       }).catch(() => {
         setToken('')
+        localSave('tabList', `[]`)
         next({ name: 'login' })
       })
-    } else {
-      next()
+    }
+    // 已经获取主页的路由规则 
+    else {
+      if (to.name === 'login') {
+        localSave('tabList', `[]`)
+        next({ name: 'home' })
+      }
+      else next()
     }
   } else {
+    // 无token
     if (to.name === 'login') next()
     else next({ name: 'login' })
   }
