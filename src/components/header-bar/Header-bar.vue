@@ -2,7 +2,7 @@
   <div>
     <div class="header-left">
       <Icon type="md-menu" :size="30" @click.native="handleCollapsed" :class="triggerClasses" />
-      <bread-crumb style="margin-left: 30px"></bread-crumb>
+      <!-- <bread-crumb style="margin-left: 30px"></bread-crumb> -->
     </div>
     <div class="header-right">
       <Avatar />

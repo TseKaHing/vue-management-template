@@ -69,19 +69,12 @@ export const routerMap = [
 ]
 // routes 里面存的是不需要token权限的路由
 export const routes = [
-  // {
-  //   path: '/',
-  //   redirect: '/login'
-  // },
-  // {
-  //   path: '/',
-  //   name: 'login_demo',
-  //   component: () => import('@/views/login_demo.vue'),
-  //   meta: { title: '登录demo', icon: 'md-log-in' }
-  // },
-
   {
     path: '/',
+    redirect: '/login'
+  },
+  {
+    path: '/login',
     name: 'login',
     component: () => import('@/views/login/Login.vue'),
 
@@ -96,6 +89,6 @@ export const routes = [
   {
     path: '*',
     component: () => import('@/views/common/404.vue'),
-    meta: { index: 0 }
+    meta: { index: 0, title: '404' }
   }
 ]

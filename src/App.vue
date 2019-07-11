@@ -54,7 +54,6 @@ body {
     }
   }
 }
-
 .slide-right-enter-active,
 .slide-right-leave-active,
 .slide-left-enter-active,

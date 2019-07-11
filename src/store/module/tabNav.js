@@ -1,5 +1,5 @@
 import { routeHasExist, getRouteById, routeEqual, localSave, localRead } from '@/lib/util'
-
+import { Message } from 'iview'
 
 const state = {
   // tabList: JSON.parse(localRead('tabList') || "[]"),
@@ -27,8 +27,25 @@ const mutations = {
     localSave('tabList', JSON.stringify(getTabListToLocal(state.tabList)))
   },
   REMOVE_TAB(state, index) {
-    state.tabList.splice(index, 1)
-    localSave('tabList', JSON.stringify(getTabListToLocal(state.tabList)))
+
+    if (index < 0 || !state.tabList[index].meta.title) {
+      state.tabList.splice(index, 1)
+      localSave('tabList', JSON.stringify(getTabListToLocal(state.tabList)))
+    }
+    if (state.tabList.length == 1 && state.tabList[index].name == 'homepage') {
+      const homepage_route = state.tabList[index]
+      state.tabList.splice(index, 1)
+      state.tabList.push(homepage_route)
+      localSave('tabList', JSON.stringify(getTabListToLocal(state.tabList)))
+      Message.info("'" + homepage_route.meta.title + "'" + "不能被关闭！")
+    } else {
+      state.tabList.splice(index, 1)
+      localSave('tabList', JSON.stringify(getTabListToLocal(state.tabList)))
+    }
+
+
+    // state.tabList.splice(index, 1)
+    // localSave('tabList', JSON.stringify(getTabListToLocal(state.tabList)))
   }
 }
 

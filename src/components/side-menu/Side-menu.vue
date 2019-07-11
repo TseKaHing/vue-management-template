@@ -54,7 +54,6 @@ import ReSubmenu from "./Re-submenu";
 import ReDropdown from "./Re-dropdown";
 import { mapState } from "vuex";
 import { getOpenArrByName } from "@/lib/util";
-import { async } from "q";
 export default {
   name: "SideMenu",
   components: {

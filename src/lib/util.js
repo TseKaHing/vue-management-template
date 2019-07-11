@@ -20,6 +20,15 @@ export const setUserInfo = (_id, username, password, degree) => {
   Cookies.set('degree', degree)
 }
 
+export const setRawPwd = (raw_pwd) => {
+  console.log(raw_pwd);
+  Cookies.set('rawpwd', raw_pwd)
+}
+
+export const getRawPwd = () => {
+  return Cookies.get('rawpwd')
+}
+
 export const getUserId = () => {
   return Cookies.get('_id')
 }
@@ -64,20 +73,38 @@ export const getOpenArrByName = (name, routerList) => {
 
 
 export const routeEqual = (route1, route2) => {
-  const params1 = route1.params || {}
-  const params2 = route2.params || {}
-  const query1 = route1.query || {}
-  const query2 = route2.query || {}
+  // const { name1, params1, query1 } = route1
+  // const { name2, params2, query2 } = route2
+  if (route1 == undefined || route2 == undefined) {
+    return false
+  }
+  let params1 = route1.params
+  let params2 = route2.params
+  let query1 = route1.query1
+  let query2 = route2.query2
+  if (!params1) params1 = {}
+  if (!params2) params2 = {}
+  if (!query1) query1 = {}
+  if (!query2) query2 = {}
+
+  // const params1 = route1.params || {}
+  // const params2 = route2.params || {}
+  // const query1 = route1.query || {}
+  // const query2 = route2.query || {}
   return route1.name === route2.name && objEqual(params1, params2) && objEqual(query1, query2)
 }
 
 export const routeHasExist = (tabList, routeItem) => {
+  if (routeItem.meta.title == '404') {
+    return true
+  }
   let len = tabList.length
-  let res = false
+  let exist = false
   doCustomTimes(len, (index) => {
-    if (routeEqual(tabList[index], routeItem)) res = true
+    if (routeEqual(tabList[index], routeItem)) exist = true
   })
-  return res
+  console.log('exist：', exist);
+  return exist
 }
 
 const getKeyValueArr = obj => {
@@ -125,5 +152,3 @@ export const getRouteById = id => {
   res.name = id
   return res
 }
-
-

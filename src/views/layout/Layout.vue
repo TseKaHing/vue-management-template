@@ -68,6 +68,7 @@ export default {
       routers: state =>
         state.router.routers.filter(item => {
           return (
+            item.path !== '/' &&
             item.path !== "*" &&
             item.name !== "login" &&
             item.name != "pwdsuccess"
@@ -76,7 +77,6 @@ export default {
     })
   },
   methods: {
-    ...mapMutations(["UPDATE_ROUTER"]),
     handleCollapsedChange(state) {
       this.collapsed = state;
     },

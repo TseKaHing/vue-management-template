@@ -13,8 +13,8 @@
     ref="LoginForm"
     :model="LoginForm"
     :rules="rule_LoginForm"
-    @keydown.enter.native="login"
     class="form-class"
+    @keydown.enter.native="login_submit('LoginForm')"
   >
     <FormItem prop="userName">
       <i-input v-model="LoginForm.userName" placeholder="请输入用户名">
@@ -33,7 +33,7 @@
     <FormItem>
       <slide-verify></slide-verify>
     </FormItem>
-    <Checkbox v-model="checked">
+    <Checkbox v-model="checkFlag">
       <span class="rememberKey">记住密码</span>
     </Checkbox>
     <br />
@@ -48,7 +48,8 @@
 // import http from "@/assets/js/http.js";
 import SlideVerify from "_c/slide-verify";
 import Format from "@/assets/js/Format.js";
-import { mapActions } from "vuex";
+import { mapMutations, mapActions } from "vuex";
+import { getUserName, getRawPwd, setRawPwd } from "@/lib/util";
 export default {
   name: "Login-Form",
   component: {
@@ -56,14 +57,13 @@ export default {
   },
   data() {
     return {
-      // 这里的 checked 表示 记住密码那个 checkbox 的状态
-      checked: false,
+      checkFlag: false,
       // loading 表示点击 登陆 按钮 的加载状态，初始化为 false
       systemName: "",
       prefix_url: "/api/user",
       LoginForm: {
-        userName: "",
-        password: ""
+        userName: getUserName() ? getUserName() : "",
+        password: getRawPwd() ? getRawPwd() : ""
       },
       rule_LoginForm: {
         userName: [
@@ -84,6 +84,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(["setCheckState"]),
     ...mapActions(["register", "login"]),
     register_submit(name) {
       this.$refs[name].validate(isValid => {
@@ -96,7 +97,7 @@ export default {
               return;
             })
             .catch(err => {
-              console.log(err);
+              return;
             });
         }
       });
@@ -104,17 +105,24 @@ export default {
     login_submit(name) {
       this.$refs[name].validate(isValid => {
         if (isValid) {
+          if (this.checkFlag) {
+            setRawPwd(this.LoginForm.password);
+          } else if (!this.checkFlag) {
+            setRawPwd("");
+          }
+
           this.login({
             username: this.LoginForm.userName,
             password: this.LoginForm.password
           })
             .then(res => {
-              console.log("登陆成功！");
-              this.$Message.info("登陆成功！");
+              // if (this.checked) this.setCheckState(true);
+
               this.$router.push({ name: "home" });
+              this.$Message.info("登陆成功！");
             })
             .catch(err => {
-              console.log(err);
+              return;
             });
         }
       });

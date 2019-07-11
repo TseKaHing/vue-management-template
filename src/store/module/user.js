@@ -4,6 +4,7 @@ import { Message } from 'iview'
 
 const user = {
   state: {
+    checkState: false,
     UserId: "",
     UserName: "",  //用户名
     UserPwd: "",  // 用户密码,
@@ -14,6 +15,9 @@ const user = {
     rules: {}
   },
   mutations: {
+    setCheckState(state, checkState) {
+      state.checkState = checkState
+    },
     setUserId(state, UserId) {
       state.UserId = UserId
     },
@@ -117,6 +121,7 @@ const user = {
       })
     },
     logout() {
+      Message.info("登出成功！")
       setToken('')
 
     }

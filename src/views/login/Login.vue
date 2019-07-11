@@ -27,7 +27,7 @@
 </template>
 <script>
 import "./Login.less";
-import LoginForm from "./Login-form";
+import LoginForm from "./login-form";
 export default {
   components: {
     LoginForm
