@@ -185,6 +185,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/changepwd', async (req, res) => {
   const tokenFromClient = req.headers.authorization
+  console.log(tokenFromClient);
   const { user_id, currentPwd, newPwd } = req.body
 
   models.User.findById(user_id, (err, user) => {

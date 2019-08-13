@@ -68,10 +68,10 @@ export default {
       routers: state =>
         state.router.routers.filter(item => {
           return (
-            item.path !== '/' &&
+            item.path !== "/" &&
             item.path !== "*" &&
             item.name !== "login" &&
-            item.name != "pwdsuccess"
+            item.name !== "pwdsuccess"
           );
         })
     })
@@ -100,7 +100,7 @@ export default {
           <div>
             <span style="marginLeft: 10px">{item.meta.title}</span>
             <icon
-              type="md-close-circle"
+              type="md-backspace"
               style="line-height:12px;marginLeft: 10px"
               nativeOn-click={this.handleTabRemove.bind(
                 this,

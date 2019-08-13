@@ -10,6 +10,7 @@
 </template>
 
 <script>
+// import stack from "@/stack";
 import {
   getUserId,
   getUserName,
@@ -28,6 +29,9 @@ export default {
       Degree: getUserDegree(),
       Token: getToken()
     };
+  },
+  mounted() {
+    // console.log(stack);
   }
 };
 </script>

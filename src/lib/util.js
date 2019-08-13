@@ -21,7 +21,6 @@ export const setUserInfo = (_id, username, password, degree) => {
 }
 
 export const setRawPwd = (raw_pwd) => {
-  console.log(raw_pwd);
   Cookies.set('rawpwd', raw_pwd)
 }
 

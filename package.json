@@ -16,8 +16,11 @@
     "js-md5": "^0.7.3",
     "lockr": "^0.8.5",
     "vue": "^2.6.10",
+    "vue-highlightable-input": "^1.0.9",
     "vue-monoplasty-slide-verify": "^1.0.5",
     "vue-router": "^3.0.3",
+    "vue-virtual-scroll-list": "^1.4.1",
+    "vuetify": "^1.5.16",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

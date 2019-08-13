@@ -57,7 +57,7 @@ const user = {
     login({ commit }, { username, password }) {
       return new Promise((resolve, reject) => {
         login({ username, password }).then(res => {
-
+          // axios.defaults.headers.common['Authorization'] = res.data.data.token
           if (res.data.code === 401) {
             Message.error(res.data.message)
             return
@@ -85,7 +85,6 @@ const user = {
     authorization({ commit }, token) {
       return new Promise((resolve, reject) => {
         authorization().then(res => {
-          // console.log(res);
           if (parseInt(res.data.code) === 401) {
             reject(new Error('非法token！'))
           } else {
@@ -103,6 +102,9 @@ const user = {
       return new Promise((resolve, reject) => {
         changepwd({ user_id, currentPwd, newPwd }).then(res => {
           // console.log(res);
+          // axios.defaults.headers.common['Authorization'] = 
+
+
           if (res.data.code === 412 || res.data.code === 401) {
             console.log(res);
             Message.error(res.data.message)

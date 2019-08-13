@@ -40,7 +40,7 @@ export const routerMap = [
     component: Layout,
     // redirect: '/login/main/personalsettings/changepwd',
     // component: () => import('@/views/personalsettings/Personal-settings.vue'),
-    meta: { index: 1, title: '系统设置', icon: "md-settings" },
+    meta: { index: 1, title: '系统设置', icon: "ios-build" },
     children: [
       {
         path: 'personalSettings',
@@ -63,8 +63,21 @@ export const routerMap = [
         ]
       }
     ]
-
   },
+  {
+    path: '/management',
+    name: 'management',
+    component: Layout,
+    meta: { index: 1, title: '系统管理', icon: 'ios-settings' },
+    children: [
+      {
+        path: 'user',
+        name: 'user_manage',
+        component: () => import('@/views/sys_management/user'),
+        meta: { index: 2, title: '用户管理', icon: 'ios-person' }
+      }
+    ]
+  }
 
 ]
 // routes 里面存的是不需要token权限的路由
@@ -79,6 +92,32 @@ export const routes = [
     component: () => import('@/views/login/Login.vue'),
 
     meta: { index: 0, title: '登录' }
+  },
+  {
+    path: '/common',
+    name: 'common',
+    component: Layout,
+    meta: { index: 1, title: '封装的组件', icon: 'md-git-compare' },
+    children: [
+      {
+        path: '/commonselect',
+        name: 'commonselect',
+        component: () => import('_c/big-data/common_select/common_select.vue'),
+        meta: { index: 2, title: '通用选择框', icon: 'ios-list-box-outline' }
+      },
+      {
+        path: '/commontable',
+        name: 'commontable',
+        component: () => import('_c/big-data/common_table/common_table.vue'),
+        meta: { index: 2, title: '通用表格', icon: 'md-bookmarks' }
+      },
+      {
+        path: '/foldertree',
+        name: 'foldertree',
+        component: () => import('@/views/folder-tree'),
+        meta: { index: 2, title: '文件树', icon: 'ios-folder-open-outline' }
+      }
+    ]
   },
   {
     path: 'pwdsuccess',
