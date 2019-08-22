@@ -30,9 +30,9 @@
         </span>
       </i-input>
     </FormItem>
-    <FormItem>
+    <!-- <FormItem>
       <slide-verify></slide-verify>
-    </FormItem>
+    </FormItem>-->
     <Checkbox v-model="checkFlag">
       <span class="rememberKey">记住密码</span>
     </Checkbox>

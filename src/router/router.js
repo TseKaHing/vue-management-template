@@ -90,8 +90,13 @@ export const routes = [
     path: '/login',
     name: 'login',
     component: () => import('@/views/login/Login.vue'),
-
     meta: { index: 0, title: '登录' }
+  },
+  {
+    path: '/authenbygithub',
+    name: 'authenbygithub',
+    component: () => import('@/views/common/AuthenByGithub.vue'),
+    meta: { index: 1, title: 'github授权', icon: 'logo-github' }
   },
   {
     path: '/common',
@@ -120,7 +125,7 @@ export const routes = [
     ]
   },
   {
-    path: 'pwdsuccess',
+    path: '/pwdsuccess',
     name: 'pwdsuccess',
     component: () => import("@/views/personalsettings/Change_Password_Success.vue"),
     meta: { index: 0, title: '修改成功', icon: 'md-checkmark-circle' }

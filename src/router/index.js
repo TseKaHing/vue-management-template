@@ -46,7 +46,7 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     // 无token
-    if (to.name === 'login') next()
+    if (to.name === 'login' || to.name === 'authenbygithub') next()
     else next({ name: 'login' })
   }
 })

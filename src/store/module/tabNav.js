@@ -21,6 +21,9 @@ const getTabListToLocal = tabList => {
 
 const mutations = {
   UPDATE_ROUTER(state, route) {
+    // if (!routeHasExist(state.tabList, route) && route.name !== 'login' && route.name !== 'pwdsuccess' && route.name !== 'authenbygithub') {
+    //   state.tabList.push(route)
+    // }
     if (!routeHasExist(state.tabList, route) && route.name !== 'login' && route.name !== 'pwdsuccess') {
       state.tabList.push(route)
     }

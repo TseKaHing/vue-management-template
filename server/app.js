@@ -2,8 +2,9 @@
 // 引入编写好的api
 // const api = require('./api/user_api');
 
-const user_api = require('./api/user')
+const user = require('./api/user')
 const table_data = require('./api/table_data')
+const authen = require('./api/authen')
 // 引入文件模块
 const fs = require('fs');
 // 引入处理路径的模块
@@ -84,9 +85,10 @@ const isNeedAuthorization = (path_url, method_arr) => {
 // })
 
 // app.use(api);
-app.use('/user', user_api)
+app.use('/user', user)
 app.use('/data', table_data)
-// app.use('/data', table_data)
+app.use('/authen', authen)
+
 // 访问静态资源文件 这里是访问所有dist目录下的静态资源文件
 app.use(express.static(path.resolve(__dirname, '../dist')))
 // 因为是单页应用 所有请求都走../dist/index.html

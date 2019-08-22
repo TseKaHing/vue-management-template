@@ -72,6 +72,7 @@ export default {
             item.path !== "*" &&
             item.name !== "login" &&
             item.name !== "pwdsuccess"
+            // item.name !== "authenbygithub"
           );
         })
     })
