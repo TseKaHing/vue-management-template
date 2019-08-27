@@ -93,6 +93,12 @@ export const routes = [
     meta: { index: 0, title: '登录' }
   },
   {
+    path: '/authentest',
+    name: 'authentest',
+    component: () => import('@/views/at.vue'),
+    meta: { index: 1, title: '授权测试' }
+  },
+  {
     path: '/authenbygithub',
     name: 'authenbygithub',
     component: () => import('@/views/common/AuthenByGithub.vue'),

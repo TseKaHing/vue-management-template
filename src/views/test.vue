@@ -6,6 +6,7 @@
     <div>Password:{{ Password }}</div>
     <div>Degree:{{ Degree }}</div>
     <div>Token: {{ Token }}</div>
+    <div>Code: {{ Code }}</div>
   </div>
 </template>
 
@@ -17,7 +18,8 @@ import {
   getRawPwd,
   getPassword,
   getUserDegree,
-  getToken
+  getToken,
+  getCodeFromGithub
 } from "@/lib/util";
 export default {
   data() {
@@ -27,7 +29,8 @@ export default {
       RawPwd: getRawPwd(),
       Password: getPassword(),
       Degree: getUserDegree(),
-      Token: getToken()
+      Token: getToken(),
+      Code: getCodeFromGithub()
     };
   },
   mounted() {

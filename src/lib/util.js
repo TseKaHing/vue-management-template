@@ -20,6 +20,15 @@ export const setUserInfo = (_id, username, password, degree) => {
   Cookies.set('degree', degree)
 }
 
+export const setCodeFromGithub = (code, codeName = 'codeFromGithub') => {
+  Cookies.set(codeName, code)
+}
+
+export const getCodeFromGithub = (codeName = 'codeFromGithub') => {
+  return Cookies.get(codeName)
+  // console.log(codeName, Cookies.get(codeName));
+}
+
 export const setRawPwd = (raw_pwd) => {
   Cookies.set('rawpwd', raw_pwd)
 }

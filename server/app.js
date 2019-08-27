@@ -50,6 +50,14 @@ const isNeedAuthorization = (path_url, method_arr) => {
   return method_arr.some(item => item.includes(path_url))
 }
 
+app.all('*', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type')
+  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
+  next()
+})
+
+
 // app.all('*', async (req, res, next) => {
 //   console.log(req);
 //   let method = req.method.toLowerCase()

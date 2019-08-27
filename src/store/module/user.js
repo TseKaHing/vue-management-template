@@ -103,8 +103,6 @@ const user = {
         changepwd({ user_id, currentPwd, newPwd }).then(res => {
           // console.log(res);
           // axios.defaults.headers.common['Authorization'] = 
-
-
           if (res.data.code === 412 || res.data.code === 401) {
             console.log(res);
             Message.error(res.data.message)
@@ -125,8 +123,8 @@ const user = {
     logout() {
       Message.info("登出成功！")
       setToken('')
+    },
 
-    }
 
 
   }
