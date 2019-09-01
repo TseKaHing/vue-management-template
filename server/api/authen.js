@@ -50,7 +50,8 @@ router.post('/access_token', async (req, res, next) => {
         res.setHeader('token', token)
         res.json({
           code: 200,
-          resp
+          resp,
+          token
         })
       })
     }).catch(err => {

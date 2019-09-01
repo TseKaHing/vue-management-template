@@ -2,6 +2,18 @@ import Layout from '../views/layout/Layout.vue'
 
 // routerMap 里面存的是需要token权限的路由
 export const routerMap = [
+  // {
+  //   path: '/authentest',
+  //   name: 'authentest',
+  //   component: () => import('@/views/at.vue'),
+  //   meta: { index: 1, title: '授权测试', icon: "ios-heart" }
+  // },
+  {
+    path: '/authenbygithub',
+    name: 'authenbygithub',
+    component: () => import('@/views/common/AuthenByGithub.vue'),
+    meta: { index: 1, title: 'github授权', icon: 'logo-github' }
+  },
   {
     path: '/home',
     name: 'home',
@@ -31,6 +43,12 @@ export const routerMap = [
         component: () => import('@/views/test.vue'),
         meta: { index: 2, title: 'test', icon: "logo-javascript" }
       },
+      // {
+      //   path: 'authentest',
+      //   name: 'authentest',
+      //   component: () => import('@/views/at.vue'),
+      //   meta: { index: 2, title: '授权测试', icon: "ios-heart" }
+      // },
     ]
   },
 
@@ -96,7 +114,7 @@ export const routes = [
     path: '/authentest',
     name: 'authentest',
     component: () => import('@/views/at.vue'),
-    meta: { index: 1, title: '授权测试' }
+    meta: { index: 1, title: '授权测试', icon: "ios-heart" }
   },
   {
     path: '/authenbygithub',

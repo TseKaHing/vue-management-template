@@ -7,6 +7,11 @@
     <div>Degree:{{ Degree }}</div>
     <div>Token: {{ Token }}</div>
     <div>Code: {{ Code }}</div>
+    <div>
+      Github授权信息:
+      <br />
+      {{GithubInfo}}
+    </div>
   </div>
 </template>
 
@@ -30,11 +35,9 @@ export default {
       Password: getPassword(),
       Degree: getUserDegree(),
       Token: getToken(),
-      Code: getCodeFromGithub()
+      Code: getCodeFromGithub(),
+      GithubInfo: JSON.parse(localStorage.getItem("github_info"))
     };
-  },
-  mounted() {
-    // console.log(stack);
   }
 };
 </script>
