@@ -35,10 +35,8 @@ export default {
       console.log("授权失败！");
       setCodeFromGithub("");
     }
-    console.log(this.$route);
   },
   mounted() {
-    // getAccessToken() {
     getAccessToken(this.code).then(res => {
       console.log(res);
       // console.log("token", res.data.token);

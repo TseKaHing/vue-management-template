@@ -24,7 +24,7 @@ const mutations = {
     // if (!routeHasExist(state.tabList, route) && route.name !== 'login' && route.name !== 'pwdsuccess' && route.name !== 'authenbygithub') {
     //   state.tabList.push(route)
     // }
-    if (!routeHasExist(state.tabList, route) && route.name !== 'login' && route.name !== 'pwdsuccess') {
+    if (!routeHasExist(state.tabList, route) && route.name !== 'login' && route.name !== 'pwdsuccess' && route.name !== 'authentest' && route.name !== 'authenbygithub') {
       state.tabList.push(route)
     }
     localSave('tabList', JSON.stringify(getTabListToLocal(state.tabList)))
