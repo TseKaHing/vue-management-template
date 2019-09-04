@@ -110,14 +110,12 @@ export default {
           } else if (!this.checkFlag) {
             setRawPwd("");
           }
-
           this.login({
             username: this.LoginForm.userName,
             password: this.LoginForm.password
           })
             .then(res => {
               // if (this.checked) this.setCheckState(true);
-
               this.$router.push({ name: "home" });
               this.$Message.info("登陆成功！");
             })
@@ -127,13 +125,6 @@ export default {
         }
       });
     }
-  },
-  mounted() {
-    window.addEventListener("keyup", e => {
-      if (e.keyCode === 13) {
-        this.login_submit("LoginForm");
-      }
-    });
   }
 };
 </script>

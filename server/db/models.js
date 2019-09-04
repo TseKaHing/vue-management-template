@@ -5,6 +5,11 @@ Model和Entity都可对数据库操作造成影响
 
 const mongoose = require('mongoose');
 // 连接数据库 如果不自己创建 默认test数据库会自动生成
+// mongoose.connect('mongodb://localhost:27017/Users', {
+//   useNewUrlParser: true,
+//   useCreateIndex: true
+// });
+
 mongoose.connect('mongodb://localhost:27017/Users', {
   useNewUrlParser: true,
   useCreateIndex: true
