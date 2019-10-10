@@ -49,7 +49,7 @@ const MenuListSchema = new Schema({
 const Models = {}
 
 Models.User = mongoose.model('User', UserSchema)
-Models.MenuList = mongoose.model('MenuList', MenuListSchema)
+// Models.MenuList = mongoose.model('MenuList', MenuListSchema)
 
 
 

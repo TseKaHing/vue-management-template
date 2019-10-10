@@ -3,7 +3,7 @@
     <template>
       <div class="padding-box"></div>
       <Row>
-        <i-col span="5">
+        <i-col span="4">
           <Card dis-hover :width="100">
             <p slot="title">
               <Icon type="md-settings" size="22" />
@@ -12,7 +12,8 @@
             <template v-for="item in settingList">
               <Row :key="`setting_${item.title}`">
                 <i-col>
-                  <router-link to="/settings/personalsettings/changepwd">
+                  <!-- <router-link to="/settings/personalsettings/changepwd"> -->
+                  <router-link :to="item.link">
                     <div class="div-padding">
                       <span>{{ item.title }}</span>
                       <Icon class="icon-padding" :type="item.icon" size="20px" />
@@ -24,10 +25,7 @@
           </Card>
         </i-col>
         <i-col span="12" offset="1">
-          <Card dis-hover>
-            <p slot="title">{{ $route.meta.title }}</p>
-            <router-view></router-view>
-          </Card>
+          <router-view></router-view>
         </i-col>
       </Row>
     </template>
@@ -41,15 +39,18 @@ export default {
       settingList: [
         {
           title: "个人资料",
-          icon: "ios-arrow-dropright"
+          icon: "ios-arrow-dropright",
+          link: "/settings/personalsettings/maininfo"
         },
         {
           title: "修改密码",
-          icon: "ios-arrow-dropright"
+          icon: "ios-arrow-dropright",
+          link: "/settings/personalsettings/changepwd"
         },
         {
-          title: "资源管理",
-          icon: "ios-arrow-dropright"
+          title: "重置密码",
+          icon: "ios-arrow-dropright",
+          link: "/settings/personalSettings/resetpwdbyemail"
         }
       ]
     };

@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 
 router.get('/gettabledata', async (req, res, next) => {
   // console.log('请求成功');
-  res.status(200).send({
+  res.json({
     code: 200,
     arr: [
       {

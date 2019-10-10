@@ -6,7 +6,7 @@ var fax = /^(\d{3,4}-)?\d{7,8}$/
 var username = /^(\w){5,16}$/
 var currentpwd = /^(\w){5,25}$/
 var newpwd = /^(\w){5,25}$/
-
+var nickname = /^[\w\u4e00-\u9fa5]{2,12}$/
 
 
 
@@ -142,6 +142,35 @@ var FormValidate = (function () {
         } else {
           callback()
         }
+      }
+
+    }
+  }
+
+
+  FormValidate.settingInfo = function () {
+    return {
+      // 姓名的验证规则
+      NickName: function (rule, value, callback) {
+        if (!value) {
+          return callback(new Error('昵称不能为空！'))
+        }
+
+        if (!nickname.test(value)) {
+          return callback(new Error('请输入1到6个汉字或2~12个字母、数字、下划线'))
+        }
+        else callback()
+      },
+
+      Introduction: (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('简介不能为空！'))
+        }
+
+        if (value.length > 50) {
+          return callback(new Error('输入内容保持在50字以内！'))
+        }
+        else callback()
       }
 
     }

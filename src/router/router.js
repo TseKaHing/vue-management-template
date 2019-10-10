@@ -40,20 +40,48 @@ export const routerMap = [
     ]
   },
 
+
+  {
+    path: '/management',
+    name: 'management',
+    component: Layout,
+    meta: { index: 1, title: '系统管理', icon: 'ios-settings' },
+    children: [
+      {
+        path: 'user',
+        name: 'user_manage',
+        component: () => import('@/views/sys_management/user'),
+        meta: { index: 2, title: '用户管理', icon: 'ios-person' }
+      }
+    ]
+  },
   {
     path: '/settings',
     name: 'settings',
     component: Layout,
     // redirect: '/login/main/personalsettings/changepwd',
     // component: () => import('@/views/personalsettings/Personal-settings.vue'),
-    meta: { index: 1, title: '系统设置', icon: "ios-build" },
+    meta: { index: 1, title: '个人信息', icon: "ios-build" },
     children: [
+
+      {
+        path: 'mine',
+        name: 'mine',
+        component: () => import("@/views/personalsettings/personalinfo"),
+        meta: { index: 2, title: '我的主页', icon: "md-book" },
+      },
       {
         path: 'personalSettings',
         name: 'personalSettings',
         component: () => import('@/views/personalsettings/Personal-settings.vue'),
-        meta: { index: 2, title: '个人设置', icon: 'md-person' },
+        meta: { index: 2, title: '修改信息', icon: 'ios-person' },
         children: [
+          {
+            path: 'maininfo',
+            name: 'maininfo',
+            component: () => import("@/views/personalsettings/main"),
+            meta: { index: 2, title: '个人资料', icon: "ios-browsers-outline" }
+          },
           {
             path: 'changepwd',
             name: 'changepwd',
@@ -69,34 +97,30 @@ export const routerMap = [
         ]
       }
     ]
-  },
-  {
-    path: '/management',
-    name: 'management',
-    component: Layout,
-    meta: { index: 1, title: '系统管理', icon: 'ios-settings' },
-    children: [
-      {
-        path: 'user',
-        name: 'user_manage',
-        component: () => import('@/views/sys_management/user'),
-        meta: { index: 2, title: '用户管理', icon: 'ios-person' }
-      }
-    ]
   }
-
 ]
 // routes 里面存的是不需要token权限的路由
 export const routes = [
   {
     path: '/',
-    redirect: '/login'
-  },
-  {
-    path: '/login',
-    name: 'login',
+    name: 'index',
     component: () => import('@/views/login/Login.vue'),
-    meta: { index: 0, title: '登录' }
+    redirect: '/login',
+    children: [
+      {
+        path: 'login',
+        name: 'login',
+        component: () => import('@/views/login/login-form.vue'),
+        meta: { index: 0, title: '登录' }
+      },
+      {
+        path: 'register',
+        name: 'register',
+        component: () => import('@/views/login/register-form.vue'),
+        meta: { index: 0, title: '注册' }
+      }
+
+    ]
   },
   {
     path: '/authentest',
@@ -127,6 +151,12 @@ export const routes = [
         name: 'commontable',
         component: () => import('_c/big-data/common_table/common_table.vue'),
         meta: { index: 2, title: '通用表格', icon: 'md-bookmarks' }
+      },
+      {
+        path: '/areadata',
+        name: 'areadata',
+        component: () => import('_c/area-data'),
+        meta: { index: 2, title: '地区数据', icon: 'ios-folder-open-outline' }
       },
       {
         path: '/foldertree',

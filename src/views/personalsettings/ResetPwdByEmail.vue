@@ -1,6 +1,12 @@
 <template>
-  <div>
-    <Form ref="Form_ResetPassword" :model="Form_ResetPassword" :rules="ruleForm_ResetPassword" :label-width="80">
+  <Card dis-hover>
+    <p slot="title">{{ $route.meta.title }}</p>
+    <Form
+      ref="Form_ResetPassword"
+      :model="Form_ResetPassword"
+      :rules="ruleForm_ResetPassword"
+      :label-width="80"
+    >
       <FormItem label="姓名" prop="name">
         <i-input type="text" v-model="Form_ResetPassword.name"></i-input>
       </FormItem>
@@ -12,7 +18,7 @@
         <Button @click="handleReset('Form_ResetPassword')" style="margin-left: 8px">重 置</Button>
       </FormItem>
     </Form>
-  </div>
+  </Card>
 </template>
 <script>
 import Format from "@/assets/js/Format.js";
