@@ -9,6 +9,7 @@ module.exports = {
     config.resolve.alias
       .set('@', resolve('src'))
       .set('_c', resolve('src/components'))
+      .set('_v', resolve('src/views'))
   },
   // 打包时不生成.map文件，可减少打包时的体积，加快打包速度 
   productionSourceMap: false,

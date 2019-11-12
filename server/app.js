@@ -5,6 +5,8 @@
 const user = require('./api/user')
 const table_data = require('./api/table_data')
 const authen = require('./api/authen')
+const ips = require('./api/ips')
+
 // 引入文件模块
 const fs = require('fs');
 // 引入处理路径的模块
@@ -23,10 +25,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json())
 app.use(cookieParser());
 
-
-// const frontEnd_router = {
-//   ''
-// }
 
 // 白名单后台接口, 如果在白名单中就不同jwt校验
 const whiteList_url = {
@@ -96,7 +94,7 @@ app.all('*', (req, res, next) => {
 app.use('/user', user)
 app.use('/data', table_data)
 app.use('/authen', authen)
-
+app.use('/ips', ips)
 // 访问静态资源文件 这里是访问所有dist目录下的静态资源文件
 app.use(express.static(path.resolve(__dirname, '../dist')))
 // 因为是单页应用 所有请求都走../dist/index.html

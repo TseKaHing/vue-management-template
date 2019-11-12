@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { baseURL } from '@/config'
 import { getToken } from '@/lib/util'
-import { Spin } from 'iview';
+import { Spin } from 'view-design';
 
 class HttpRequest {
   // 默认是 BaseUrl

@@ -4,7 +4,6 @@ const models = require('../db/models');
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken')
-
 // 秘钥
 const secretOrPrivateKey = "5678FEWFWEEWGW54W4GW4E65G4E"  // 私钥
 

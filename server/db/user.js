@@ -1,4 +1,7 @@
-const UserSchema = mongoose.Schema({
+const mongoose = require('mongoose');
+var Schema = mongoose.Schema
+
+const UserSchema = new Schema({
   username: { type: String, unique: true },
   password: {
     type: String, set(val) {
@@ -11,9 +14,6 @@ const UserSchema = mongoose.Schema({
   degree: { type: Number, default: 0 }
 });
 
-/************** 定义模型Model **************/
-const Models = {
-  User: mongoose.model('User', UserSchema)
-}
+User = mongoose.model('User', UserSchema)
 
-module.exports = Models;
+module.exports = User

@@ -1,6 +1,6 @@
 import { register, login, authorization, changepwd } from '@/api/user'
 import { setToken, setUserInfo } from '@/lib/util'
-import { Message } from 'iview'
+import { Message } from 'view-design'
 
 const user = {
   state: {

@@ -97,6 +97,20 @@ export const routerMap = [
         ]
       }
     ]
+  },
+  {
+    path: '/ips',
+    name: 'ips',
+    component: Layout,
+    meta: { index: 1, title: 'IP管理', icon: "md-globe" },
+    children: [
+      {
+        path: 'fetch',
+        name: 'fetch',
+        component: () => import('_v/ip_management/fetch'),
+        meta: { index: 2, title: '获取IP', icon: 'ios-download-outline' }
+      }
+    ]
   }
 ]
 // routes 里面存的是不需要token权限的路由

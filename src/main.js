@@ -5,11 +5,12 @@ import store from './store'
 import md5 from 'js-md5'
 import Lockr from "lockr"
 import axios from "axios";
-import iView from 'iview'
-import 'iview/dist/styles/iview.css'
+import ViewUI from 'view-design'
+import 'view-design/dist/styles/iview.css';
+
 import SlideVerify from 'vue-monoplasty-slide-verify';
 
-Vue.use(iView)
+Vue.use(ViewUI)
 Vue.config.productionTip = false
 Vue.use(SlideVerify);
 

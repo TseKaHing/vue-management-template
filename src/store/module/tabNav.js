@@ -1,5 +1,5 @@
 import { routeHasExist, getRouteById, routeEqual, localSave, localRead } from '@/lib/util'
-import { Message } from 'iview'
+import { Message } from 'view-design'
 
 const state = {
   // tabList: JSON.parse(localRead('tabList') || "[]"),

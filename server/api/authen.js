@@ -10,7 +10,7 @@ router.get('/github', async (req, res, next) => {
 })
 
 router.post('/access_token', async (req, res, next) => {
-  console.log(req.cookies.codeFromGithub);
+  // console.log(req.cookies.codeFromGithub);
   // code 存在
   if (req.cookies.codeFromGithub) {
     const params = {
@@ -40,7 +40,7 @@ router.post('/access_token', async (req, res, next) => {
       console.log(access_token);
       return access_token
     }).then(async (token) => {
-      console.log('token:', token);
+      // console.log('token:', token);
       let token_url = params.token_url + token
       console.log('token_url:', token_url);
       await fetch(token_url).then(res => {

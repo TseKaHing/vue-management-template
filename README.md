@@ -1,6 +1,6 @@
 # 我的个人学习记录
 
-本项目使用 vue + iview + node.js + express + mongodb 技术栈进行搭建，主要用于记录个人学习进程
+本项目使用 vue + view-design + node.js + express + mongodb 技术栈进行搭建，主要用于记录个人学习进程
 项目域名：thinkingbig.club
 如需登录该系统，测试账号：admin，密码：admin
 
@@ -15,7 +15,7 @@
 5. 编写 RESTful API
 6. 实现基本的后台管理系统布局的框架及功能模板
 7. 实现用户注册、登录、退出登录、修改用户密码接口和相关功能
-8. 基于 iview 封装了侧边栏下拉列表等组件
+8. 基于 view-design 封装了侧边栏下拉列表等组件
 9. 使用 vue-virtual-scroll-list 插件进行虚拟渲染，实现百万级数据量的下拉列表无缝渲染
 
 ![后台系统截图](./public/screenshot.png)

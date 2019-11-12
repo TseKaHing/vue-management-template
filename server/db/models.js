@@ -4,15 +4,14 @@ Model和Entity都可对数据库操作造成影响
 ，但Model比Entity更具操作性。*/
 
 const mongoose = require('mongoose');
-// 连接数据库 如果不自己创建 默认test数据库会自动生成
-// mongoose.connect('mongodb://localhost:27017/Users', {
-//   useNewUrlParser: true,
-//   useCreateIndex: true
-// });
+const Ips = require('./ips')
+const User = require('./user')
+
 
 mongoose.connect('mongodb://localhost:27017/Users', {
   useNewUrlParser: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  useUnifiedTopology: true
 });
 
 
@@ -20,40 +19,24 @@ mongoose.connect('mongodb://localhost:27017/Users', {
 const db = mongoose.connection;
 db.once('error', () => console.log('Mongo connection error'));
 db.once('open', () => console.log('Mongo connection successed'));
-/************** 定义模式loginSchema **************/
 
-var Schema = mongoose.Schema
-
-const UserSchema = new Schema({
-  username: { type: String, unique: true },
-  password: {
-    type: String, set(val) {
-      // 10 指的是生成salt的迭代次数
-      return require('bcrypt').hashSync(val, 10)
-    }
-  },
-  token: { type: String },
-  tokenFlag: { type: Boolean, default: true },
-  degree: { type: Number, default: 0 }
-});
-
-const MenuListSchema = new Schema({
-  degree: { type: Number, default: 0 },
-  authenlist: { type: Array }
-})
 
 
 /************** 定义模型Model **************/
 
+var Models = {
+  User,
+  Ips
+}
 
-const Models = {}
 
-Models.User = mongoose.model('User', UserSchema)
+// User = mongoose.model('User', UserSchema)
+// Ips = mongoose.model('Ips', IpsSchema)
 // Models.MenuList = mongoose.model('MenuList', MenuListSchema)
 
 
+module.exports = Models
 
-module.exports = Models;
 
 
 
