@@ -7,8 +7,9 @@ const jwt = require('jsonwebtoken')
 // 秘钥
 const secretOrPrivateKey = "5678FEWFWEEWGW54W4GW4E65G4E"  // 私钥
 
-router.post('/getUserInfo', async (req, res, next) => {
+router.get('/getUserInfo', async (req, res, next) => {
   console.log('请求成功');
+  console.log(req.query);
   res.status(200).send({
     code: 200,
     data: {

@@ -1,7 +1,15 @@
 <template>
   <div>
-    <Button type="primary" style="marginBottom:10px" @click="getIPS">重新获取IP</Button>
-    <Table :height="height" border ref="selection" :columns="columns" :data="data"></Table>
+    <Button type="primary" style="marginBottom:10px" @click="getIPS"
+      >重新获取IP</Button
+    >
+    <Table
+      :height="height"
+      border
+      ref="selection"
+      :columns="columns"
+      :data="data"
+    ></Table>
     <div style="marginTop:10px">
       <Button @click="handleSelectAll(true)">全选</Button>
       <Button @click="handleSelectAll(false)">取消全选</Button>
@@ -117,5 +125,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
