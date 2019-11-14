@@ -3,44 +3,44 @@
     <div class="logo">
       <img class="logo-img" src="../../assets/images/TBDS.png" />
     </div>
-    <div class="card-head"></div>
-    <div class="register-circle-head"></div>
     <Form
       ref="RegisterForm"
       :model="RegisterForm"
       :rules="rule_RegisterForm"
-      class="form-class"
       @keydown.enter.native="register_submit('RegisterForm')"
     >
-      <FormItem prop="email">
-        <i-input v-model="RegisterForm.email" placeholder="请输入邮箱">
-          <span slot="prepend">
-            <Icon :size="20" type="md-at" />
-          </span>
-        </i-input>
-      </FormItem>
-      <FormItem prop="passInfo">
-        <i-input v-model="RegisterForm.passInfo" placeholder="请输入验证信息">
-          <span slot="prepend">
-            <Icon :size="20" type="ios-mail" />
-          </span>
-        </i-input>
-        <p class="emailTips" v-if="show">验证信息已发送至邮箱，请注意查收！</p>
-      </FormItem>
-      <FormItem>
-        <Button
-          type="primary"
-          @click.native.prevent="getPassinfo('RegisterForm.email')"
-          :class="{disabled: !clickable}"
-          long
-        >{{Tips}}</Button>
-        <Button
-          class="submit"
-          type="primary"
-          @click.native.prevent="register_submit('RegisterForm')"
-          long
-        >提交验证</Button>
-      </FormItem>
+      <center>
+        <FormItem prop="email">
+          <i-input v-model="RegisterForm.email" placeholder="请输入邮箱" class="input">
+            <span slot="prepend">
+              <Icon :size="20" type="md-at" />
+            </span>
+          </i-input>
+        </FormItem>
+        <FormItem prop="passInfo">
+          <i-input v-model="RegisterForm.passInfo" placeholder="请输入验证信息" class="input">
+            <span slot="prepend">
+              <Icon :size="20" type="ios-mail" />
+            </span>
+          </i-input>
+          <p class="emailTips" v-if="show">验证信息已发送至邮箱，请注意查收！</p>
+        </FormItem>
+        <FormItem>
+          <Button
+            type="primary"
+            @click.native.prevent="getPassinfo('RegisterForm.email')"
+            :class="{disabled: !clickable}"
+            long
+            class="input"
+          >{{Tips}}</Button>
+          <Button
+            class="input"
+            type="primary"
+            @click.native.prevent="register_submit('RegisterForm')"
+            long
+          >提交验证</Button>
+        </FormItem>
+      </center>
     </Form>
     <div class="loginTips">
       已经拥有账号？
@@ -51,8 +51,6 @@
 
 <script>
 import { mapMutations, mapActions } from "vuex";
-import "./RegLogin.less";
-
 export default {
   name: "Register-form",
   data() {
@@ -91,3 +89,16 @@ export default {
   }
 };
 </script>
+<style lang="less">
+.input {
+  width: 90%;
+}
+.logo-img {
+  height: 80px;
+  margin-left: 15px;
+}
+.loginTips {
+  margin-left: 20px;
+  padding-bottom: 20px;
+}
+</style>

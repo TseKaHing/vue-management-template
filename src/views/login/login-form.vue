@@ -4,51 +4,63 @@
     <div class="logo">
       <img class="logo-img" src="../../assets/images/TBDS.png" />
     </div>
-    <div class="card-head"></div>
-    <div class="circle-head"></div>
-
     <div class="loginform">
       <Form
         ref="LoginForm"
         :model="LoginForm"
         :rules="rule_LoginForm"
-        class="form-class"
         @keydown.enter.native="login_submit('LoginForm')"
       >
-        <FormItem prop="userName">
-          <i-input v-model="LoginForm.userName" placeholder="请输入用户名">
-            <span slot="prepend">
-              <Icon :size="20" type="ios-person" />
-            </span>
-          </i-input>
-        </FormItem>
-        <FormItem prop="password">
-          <i-input type="password" v-model="LoginForm.password" placeholder="请输入密码">
-            <span slot="prepend">
-              <Icon :size="20" type="md-lock" />
-            </span>
-          </i-input>
-        </FormItem>
-        <Checkbox v-model="checkFlag">
+        <center>
+          <FormItem prop="userName">
+            <i-input v-model="LoginForm.userName" placeholder="测试账号--admin" class="input">
+              <span slot="prepend">
+                <Icon :size="20" type="ios-person" />
+              </span>
+            </i-input>
+          </FormItem>
+          <FormItem prop="password">
+            <i-input
+              type="password"
+              v-model="LoginForm.password"
+              placeholder="测试密码--admin"
+              class="input"
+            >
+              <span slot="prepend">
+                <Icon :size="20" type="md-lock" />
+              </span>
+            </i-input>
+          </FormItem>
+        </center>
+        <Checkbox v-model="checkFlag" class="check">
           <span class="rememberKey">记住密码</span>
         </Checkbox>
         <span>
           <a href class="forgetPwd">忘记密码？</a>
         </span>
-        <br />
-        <br />
-        <FormItem>
-          <!-- <Button type="primary" @click.native.prevent="register_submit('LoginForm')" long>注册</Button> -->
-          <Button type="primary" @click.native.prevent="login_submit('LoginForm')" long>登录</Button>
-        </FormItem>
+        <center>
+          <FormItem>
+            <Button
+              type="primary"
+              @click.native.prevent="login_submit('LoginForm')"
+              long
+              class="input"
+            >登录</Button>
+          </FormItem>
+        </center>
       </Form>
       <div class="registerTips">
         尚未拥有账号？
         <router-link to="/register" class="reg">立即注册</router-link>
       </div>
       <div class="authorize-icon">
-        <img src="../../../public/github.png" alt="github授权登录" @click="AuthenByGithub()" />
-        <img src="../../../public/wechatLogo.jpg" alt />
+        <img
+          src="../../../public/github.png"
+          alt="github授权登录"
+          @click="AuthenByGithub()"
+          class="icon"
+        />
+        <img src="../../../public/wechatLogo.jpg" alt class="icon" />
       </div>
     </div>
   </div>
@@ -92,22 +104,6 @@ export default {
   methods: {
     ...mapMutations(["setCheckState"]),
     ...mapActions(["register", "login"]),
-    // register_submit(name) {
-    //   this.$refs[name].validate(isValid => {
-    //     if (isValid) {
-    //       this.register({
-    //         username: this.LoginForm.userName,
-    //         password: this.LoginForm.password
-    //       })
-    //         .then(() => {
-    //           return;
-    //         })
-    //         .catch(err => {
-    //           return;
-    //         });
-    //     }
-    //   });
-    // },
     login_submit(name) {
       this.$refs[name].validate(isValid => {
         if (isValid) {
@@ -147,3 +143,34 @@ export default {
   }
 };
 </script>
+<style lang="less">
+.input {
+  width: 90%;
+}
+.authorize-icon {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+.logo-img {
+  height: 80px;
+  margin-left: 15px;
+}
+.check {
+  margin: 0 20px 10px 20px;
+}
+.rememberKey {
+  padding-left: 10px;
+}
+.forgetPwd {
+  float: right;
+  margin: 0 20px;
+}
+.icon {
+  padding: 0 5px;
+  margin-bottom: 10px;
+}
+.registerTips {
+  margin-left: 20px;
+}
+</style>
