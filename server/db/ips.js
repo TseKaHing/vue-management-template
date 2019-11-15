@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema
 
 const IpsSchema = new Schema({
-  ip: { type: String },
+  ip: { type: String, unique: true },
   port: { type: String },
   address: { type: String },
   isAnonymous: { type: String },
