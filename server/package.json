@@ -9,6 +9,7 @@
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
     "express-jwt": "^5.3.1",
+    "fe-monitor": "^2.0.16",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "mixin-deep": "^2.0.1",
@@ -17,12 +18,10 @@
     "nodemon": "^1.19.4",
     "set-value": "^3.0.1"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "jazzyXie",
   "license": "ISC"
 }

@@ -49,10 +49,10 @@
           </FormItem>
         </center>
       </Form>
-      <div class="registerTips">
+      <!-- <div class="registerTips">
         尚未拥有账号？
         <router-link to="/register" class="reg">立即注册</router-link>
-      </div>
+      </div>-->
       <div class="authorize-icon">
         <img
           src="../../../public/github.png"

@@ -4,19 +4,19 @@
     <div class="login-con">
       <router-view></router-view>
     </div>
-    <!-- <center>
+    <center>
       <footer class="footer">
         <bei-an></bei-an>
       </footer>
-    </center>-->
+    </center>
   </div>
 </template>
 <script>
 import { authen_url } from "@/lib/authenByGithub";
-// import BeiAn from "_v/common/beian";
+import BeiAn from "_v/common/beian";
 export default {
   components: {
-    // BeiAn
+    BeiAn
   },
   methods: {
     AuthenByGithub() {
@@ -45,7 +45,7 @@ export default {
 .footer {
   // transform: translateY(500%);
   position: absolute;
-  top: 90%;
+  top: 85%;
 }
 </style>
 

@@ -59,8 +59,6 @@ export const routerMap = [
     path: '/settings',
     name: 'settings',
     component: Layout,
-    // redirect: '/login/main/personalsettings/changepwd',
-    // component: () => import('@/views/personalsettings/Personal-settings.vue'),
     meta: { index: 1, title: '个人信息', icon: "ios-build" },
     children: [
 
@@ -107,8 +105,14 @@ export const routerMap = [
       {
         path: 'fetch',
         name: 'fetch',
-        component: () => import('_v/ip_management/fetch'),
+        component: () => import('_v/ips/fetch'),
         meta: { index: 2, title: '获取IP', icon: 'ios-download-outline' }
+      },
+      {
+        path: 'check',
+        name: 'check',
+        component: () => import('_v/ips/check'),
+        meta: { index: 2, title: '查询IP', icon: 'ios-checkmark-circle-outline' }
       }
     ]
   }
