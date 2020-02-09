@@ -4,7 +4,7 @@
 项目域名：thinkingbig.club
 如需登录该系统，测试账号：admin，密码：admin
 
-**项目源码地址**：<https://github.com/jazzyXie/integrated_pro>
+**项目源码地址**：<https://github.com/jazzyXie/vue-management-template>
 
 ## 已实现功能一览
 
