@@ -16,7 +16,7 @@
     "js-cookie": "^2.2.1",
     "js-md5": "^0.7.3",
     "lockr": "^0.8.5",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "lodash.defaultsdeep": "^4.6.1",
     "lodash.merge": "^4.6.2",
     "view-design": "^4.1.3",
