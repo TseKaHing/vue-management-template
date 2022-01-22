@@ -14,7 +14,7 @@
     "lodash": "^4.17.15",
     "mixin-deep": "^2.0.1",
     "mongoose": "^5.9.7",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.1.1",
     "nodemon": "^1.19.4",
     "set-value": "^3.0.2"
   },
